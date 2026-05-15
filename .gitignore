@@ -1,0 +1,30 @@
+# ── Node / Frontend ──
+node_modules/
+dist/
+.vite/
+*.local
+
+# ── Java / Backend ──
+target/
+*.class
+*.jar
+*.war
+*.log
+.mvn/wrapper/maven-wrapper.jar
+
+# ── IDE / OS ──
+.vscode/settings.json
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# ── Environment ──
+.env
+.env.local
+.env.production
+
+# ── H2 Database files ──
+*.db
+*.mv.db
+*.trace.db
