@@ -1,0 +1,27 @@
+{
+  "APPLE": {
+    "category": "Fruit",
+    "meaning": "A round fruit with red or green skin.",
+    "example": "I ate a juicy red apple."
+  },
+  "BALL": {
+    "category": "Toy",
+    "meaning": "A round object you can throw or kick.",
+    "example": "We played with a bouncing ball."
+  },
+  "CAT": {
+    "category": "Animal",
+    "meaning": "A small furry pet that purrs.",
+    "example": "The cute cat is sleeping."
+  },
+  "DOG": {
+    "category": "Animal",
+    "meaning": "A friendly pet that barks.",
+    "example": "My dog loves to run."
+  },
+  "SUN": {
+    "category": "Nature",
+    "meaning": "The bright yellow star in the sky.",
+    "example": "The sun is shining brightly."
+  }
+}

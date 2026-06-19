@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-nunito: 'Nunito', sans-serif;
+  --color-primary: #FF5E7E;
+  --color-secondary: #38E4B7;
+  --color-accent: #FFD166;
+  --color-back: #E8F9FD;
+  --color-doraBlue: #00A5DC;
+}
+
+body {
+  @apply font-nunito bg-back text-slate-800 selection:bg-accent selection:text-slate-900 overflow-x-hidden;
+  background-image: radial-gradient(#FFD166 2px, transparent 2px);
+  background-size: 40px 40px;
+}
+
+/* Glassmorphism utility card base */
+.glass-panel {
+  @apply bg-white/95 border-4 border-white rounded-[32px] shadow-xl p-8 backdrop-blur-md relative;
+}
+
+/* Standard button styles */
+.btn-dora {
+  @apply text-white font-black text-2xl py-3.5 px-8 rounded-full border-4 border-white shadow-[0_8px_0_rgba(0,0,0,0.15)] transition-all duration-100 cursor-pointer select-none active:translate-y-[8px] active:shadow-none;
+}
