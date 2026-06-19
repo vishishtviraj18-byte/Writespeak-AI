@@ -28,3 +28,7 @@ Thumbs.db
 *.db
 *.mv.db
 *.trace.db
+
+# ── Local Maven portable files ──
+maven_temp/
+

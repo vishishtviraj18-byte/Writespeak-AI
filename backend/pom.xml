@@ -42,7 +42,14 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.46</version>
 			<optional>true</optional>
+		</dependency>
+		<!-- FuzzyWuzzy -->
+		<dependency>
+			<groupId>me.xdrop</groupId>
+			<artifactId>fuzzywuzzy</artifactId>
+			<version>1.4.0</version>
 		</dependency>
 		<!-- Testing -->
 		<dependency>
@@ -56,6 +63,23 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.46</version>
+						</path>
+					</annotationProcessorPaths>
+					<compilerArgs>
+						<arg>-proc:full</arg>
+					</compilerArgs>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
