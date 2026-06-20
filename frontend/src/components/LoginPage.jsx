@@ -25,7 +25,13 @@ const LoginPage = () => {
 
     try {
       const data = await authApi.login(username, password);
-      login(data.user, data.token);
+      const user = {
+        username: data.username,
+        name: data.name,
+        gender: data.gender,
+        age: data.age
+      };
+      login(user, data.token);
       navigate('/mode-selection');
     } catch (err) {
       setError(err.message || 'Incorrect username or password. Let\'s try again!');

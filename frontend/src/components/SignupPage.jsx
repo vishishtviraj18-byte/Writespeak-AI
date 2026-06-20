@@ -32,7 +32,13 @@ const SignupPage = () => {
       const regData = await authApi.register(username, password, name, gender, age);
       // 2. Log in directly
       const logData = await authApi.login(username, password);
-      login(logData.user, logData.token);
+      const user = {
+        username: logData.username,
+        name: logData.name,
+        gender: logData.gender,
+        age: logData.age
+      };
+      login(user, logData.token);
       navigate('/mode-selection');
     } catch (err) {
       setError(err.message || 'Username might be taken, pick another one!');
