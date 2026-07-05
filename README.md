@@ -2,6 +2,12 @@
 
 WriteSpeak AI is an interactive, gamified full-stack educational platform designed to teach children alphabets and numbers through real-time air writing, computer vision gesture detection, voice guidelines, and progress rewards!
 
+## 📸 Screenshots
+
+| Welcome Screen (Guest Options) | Learning Dashboard (Guest Mode) |
+| :---: | :---: |
+| ![Welcome Screen](screenshots/welcome_screen.png) | ![Dashboard](screenshots/dashboard.png) |
+
 ---
 
 ## 🎨 Core Features
