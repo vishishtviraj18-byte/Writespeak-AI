@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { useAuth } from '../context/AuthContext';
+import { authApi } from '../utils/api';
 import AnimatedBackground from './AnimatedBackground';
 
 const WelcomeScreen = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, login } = useAuth();
+  const [isGuestLoading, setIsGuestLoading] = useState(false);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const mascotRef = useRef(null);
@@ -62,6 +64,41 @@ const WelcomeScreen = () => {
       navigate('/mode-selection');
     } else {
       navigate('/login');
+    }
+  };
+
+  const handleGuestLogin = async () => {
+    setIsGuestLoading(true);
+    try {
+      // Attempt to login using the guest account
+      const data = await authApi.login('guest', 'guestpassword123');
+      const guestUser = {
+        username: data.username,
+        name: data.name,
+        gender: data.gender,
+        age: data.age
+      };
+      login(guestUser, data.token);
+      navigate('/mode-selection');
+    } catch (err) {
+      // If guest login fails, try to register it first
+      try {
+        await authApi.register('guest', 'guestpassword123', 'Guest Explorer', 'other', 6);
+        const data = await authApi.login('guest', 'guestpassword123');
+        const guestUser = {
+          username: data.username,
+          name: data.name,
+          gender: data.gender,
+          age: data.age
+        };
+        login(guestUser, data.token);
+        navigate('/mode-selection');
+      } catch (regErr) {
+        console.error("Guest login/registration failed:", regErr);
+        alert("Oops! Guest mode could not be started. Please try registering normally.");
+      }
+    } finally {
+      setIsGuestLoading(false);
     }
   };
 
@@ -143,22 +180,43 @@ const WelcomeScreen = () => {
 
         {/* Buttons Panel */}
         <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-          <button 
-            id="btn-start"
-            onClick={handleStart}
-            className="btn-dora bg-primary hover:bg-rose-400 w-64 text-center font-black"
-          >
-            🚀 START ADVENTURE
-          </button>
-          
-          {!user && (
+          {user ? (
             <button 
-              id="btn-login-shortcut"
-              onClick={() => navigate('/login')}
-              className="btn-dora bg-doraBlue hover:bg-sky-400 w-64 text-center font-black"
+              id="btn-start"
+              onClick={handleStart}
+              className="btn-dora bg-primary hover:bg-rose-400 w-64 text-center font-black"
             >
-              🔑 LOG IN
+              🚀 START ADVENTURE
             </button>
+          ) : (
+            <>
+              <button 
+                id="btn-signup"
+                onClick={() => navigate('/signup')}
+                className="btn-dora bg-primary hover:bg-rose-400 w-64 text-center font-black"
+                disabled={isGuestLoading}
+              >
+                🎒 CREATE CHARACTER
+              </button>
+
+              <button 
+                id="btn-guest"
+                onClick={handleGuestLogin}
+                className="btn-dora bg-emerald-500 hover:bg-emerald-400 w-64 text-center font-black"
+                disabled={isGuestLoading}
+              >
+                {isGuestLoading ? '⏳ ENTERING...' : '👤 PLAY AS GUEST'}
+              </button>
+              
+              <button 
+                id="btn-login-shortcut"
+                onClick={() => navigate('/login')}
+                className="btn-dora bg-doraBlue hover:bg-sky-400 w-64 text-center font-black"
+                disabled={isGuestLoading}
+              >
+                🔑 LOG IN
+              </button>
+            </>
           )}
         </div>
       </div>

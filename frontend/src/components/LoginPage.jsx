@@ -40,6 +40,39 @@ const LoginPage = () => {
     }
   };
 
+  const handleGuestLogin = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      const data = await authApi.login('guest', 'guestpassword123');
+      const user = {
+        username: data.username,
+        name: data.name,
+        gender: data.gender,
+        age: data.age
+      };
+      login(user, data.token);
+      navigate('/mode-selection');
+    } catch (err) {
+      try {
+        await authApi.register('guest', 'guestpassword123', 'Guest Explorer', 'other', 6);
+        const data = await authApi.login('guest', 'guestpassword123');
+        const user = {
+          username: data.username,
+          name: data.name,
+          gender: data.gender,
+          age: data.age
+        };
+        login(user, data.token);
+        navigate('/mode-selection');
+      } catch (regErr) {
+        setError('Failed to log in as Guest. Please register normally.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="relative w-screen h-screen flex flex-col items-center justify-center overflow-hidden font-nunito select-none">
       <AnimatedBackground />
@@ -108,6 +141,17 @@ const LoginPage = () => {
               <Link to="/signup" className="text-primary hover:underline font-black">
                 Create character!
               </Link>
+            </p>
+            <p className="text-slate-500 font-bold mt-2">
+              Just visiting?{' '}
+              <button 
+                type="button" 
+                onClick={handleGuestLogin} 
+                className="text-emerald-600 hover:underline font-black bg-transparent border-none cursor-pointer p-0"
+                disabled={loading}
+              >
+                Play as Guest 👤
+              </button>
             </p>
           </div>
         </div>
