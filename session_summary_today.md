@@ -30,7 +30,7 @@ The Spring Boot backend is configured to use MongoDB to persist user credentials
 2. Stopped the failing local server process.
 3. Relaunched the backend setting the `SPRING_DATA_MONGODB_URI` environment variable to point directly to your AWS replica set:
 ```powershell
-$env:SPRING_DATA_MONGODB_URI="mongodb+srv://vishishtviraj18_db_user:qzOlkq62ictCqz0d@cluster0writespeakclust.ltqv1w7.mongodb.net/writespeak?retryWrites=true&w=majority&appName=Cluster0WriteSpeakCluster"
+$env:SPRING_DATA_MONGODB_URI="mongodb+srv://<db_user>:<db_password>@cluster0writespeakclust.ltqv1w7.mongodb.net/writespeak?retryWrites=true&w=majority&appName=Cluster0WriteSpeakCluster"
 ..\maven_temp\apache-maven-3.9.16\bin\mvn.cmd spring-boot:run
 ```
 The logs confirmed a successful database handshake:
