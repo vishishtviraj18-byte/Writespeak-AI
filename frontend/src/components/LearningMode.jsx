@@ -1,348 +1,369 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useProgress } from '../hooks/useProgress';
-import CameraView from './CameraView';
 import DrawingCanvas from './DrawingCanvas';
-import AnimatedBackground from './AnimatedBackground';
 import RewardPopup from './RewardPopup';
-import CartoonMascot from './CartoonMascot';
-import { ArrowLeft, Volume2, Sparkles, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Volume2, ChevronLeft, ChevronRight, CheckCircle, XCircle } from 'lucide-react';
 import { createWorker } from 'tesseract.js';
 import confetti from 'canvas-confetti';
-import gsap from 'gsap';
 
-const ALPHABETS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const NUMBERS = "0123456789".split("");
+const ALPHABETS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const NUMBERS   = '0123456789'.split('');
 
-const LearningMode = ({ mode = "alphabet" }) => {
+const VOCAB = {
+  A: { word: 'Apple',    emoji: '🍎' }, B: { word: 'Ball',    emoji: '⚽' },
+  C: { word: 'Cat',      emoji: '🐱' }, D: { word: 'Dog',     emoji: '🐶' },
+  E: { word: 'Egg',      emoji: '🥚' }, F: { word: 'Fish',    emoji: '🐟' },
+  G: { word: 'Grapes',   emoji: '🍇' }, H: { word: 'Hat',     emoji: '🎩' },
+  I: { word: 'Ice',      emoji: '🧊' }, J: { word: 'Juice',   emoji: '🧃' },
+  K: { word: 'Kite',     emoji: '🪁' }, L: { word: 'Lion',    emoji: '🦁' },
+  M: { word: 'Moon',     emoji: '🌙' }, N: { word: 'Nest',    emoji: '🪺' },
+  O: { word: 'Orange',   emoji: '🍊' }, P: { word: 'Pen',     emoji: '🖊️' },
+  Q: { word: 'Queen',    emoji: '👑' }, R: { word: 'Rain',    emoji: '🌧️' },
+  S: { word: 'Sun',      emoji: '☀️' }, T: { word: 'Tree',    emoji: '🌳' },
+  U: { word: 'Umbrella', emoji: '☂️' }, V: { word: 'Van',     emoji: '🚌' },
+  W: { word: 'Water',    emoji: '💧' }, X: { word: 'X-ray',   emoji: '🩻' },
+  Y: { word: 'Yacht',    emoji: '⛵' }, Z: { word: 'Zebra',   emoji: '🦓' },
+};
+
+// ─────────────────────────────────────────────────────────────
+// OCR HELPERS
+// ─────────────────────────────────────────────────────────────
+
+/** Count dark pixels in a base64 image — detects if user actually drew */
+const countInkPixels = (base64) => new Promise((resolve) => {
+  const img = new Image();
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const d = ctx.getImageData(0, 0, c.width, c.height).data;
+    let count = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i] < 180 || d[i+1] < 180 || d[i+2] < 180) count++;
+    }
+    resolve(count);
+  };
+  img.onerror = () => resolve(0);
+  img.src = base64;
+});
+
+/** Template pixel similarity — renders target char, compares to drawing */
+const TMPL = 64;
+const templateCache = {};
+const getTemplate = (char) => {
+  if (templateCache[char]) return templateCache[char];
+  const c = document.createElement('canvas');
+  c.width = TMPL; c.height = TMPL;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, TMPL, TMPL);
+  ctx.fillStyle = '#000';
+  ctx.font = `bold ${TMPL * 0.78}px Arial Black, Arial, sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(char.toUpperCase(), TMPL / 2, TMPL / 2);
+  const d = ctx.getImageData(0, 0, TMPL, TMPL).data;
+  const g = new Uint8Array(TMPL * TMPL);
+  for (let i = 0; i < g.length; i++) g[i] = Math.round(255 - (d[i*4] + d[i*4+1] + d[i*4+2]) / 3);
+  return (templateCache[char] = g);
+};
+
+const pixelSim = (a, b) => {
+  let ab = 0, aa = 0, bb = 0;
+  for (let i = 0; i < a.length; i++) { ab += a[i]*b[i]; aa += a[i]*a[i]; bb += b[i]*b[i]; }
+  const d = Math.sqrt(aa * bb);
+  return d === 0 ? 0 : ab / d;
+};
+
+const templateMatch = (base64, target, threshold = 0.38) => new Promise((resolve) => {
+  const img = new Image();
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = TMPL; c.height = TMPL;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, TMPL, TMPL);
+    ctx.drawImage(img, 0, 0, TMPL, TMPL);
+    const d = ctx.getImageData(0, 0, TMPL, TMPL).data;
+    const drawn = new Uint8Array(TMPL * TMPL);
+    let ink = 0;
+    for (let i = 0; i < drawn.length; i++) {
+      drawn[i] = Math.round(255 - (d[i*4] + d[i*4+1] + d[i*4+2]) / 3);
+      if (drawn[i] > 30) ink++;
+    }
+    if (ink < 30) { resolve({ empty: true }); return; }
+
+    const ALL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+
+    // Score ALL characters
+    const scores = ALL.map(c => ({ char: c, score: pixelSim(drawn, getTemplate(c)) }));
+    scores.sort((a, b) => b.score - a.score);
+
+    const top3    = scores.slice(0, 3).map(s => s.char);
+    const best    = scores[0];
+    const targetScore = scores.find(s => s.char === target)?.score ?? 0;
+
+    // Pass if: target is in top 3 AND target score is above minimum threshold
+    const isTarget = top3.includes(target) && targetScore >= threshold;
+
+    console.log(`Template top3: ${top3.join(',')} | target="${target}" score=${(targetScore*100).toFixed(1)}%`);
+    resolve({ empty: false, bestChar: best.char, bestScore: best.score, targetScore, isTarget, top3 });
+  };
+  img.onerror = () => resolve({ empty: true });
+  img.src = base64;
+});
+
+
+/** Run Tesseract at a given PSM mode */
+const runTesseract = async (base64, psm = 8) => {
+  try {
+    const w = await createWorker('eng');
+    await w.setParameters({
+      tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+      tessedit_pageseg_mode: String(psm),
+    });
+    const { data } = await w.recognize(base64);
+    await w.terminate();
+    return { text: (data.text || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, ''), confidence: data.confidence || 0 };
+  } catch (_) { return { text: '', confidence: 0 }; }
+};
+
+// ─────────────────────────────────────────────────────────────
+// COMPONENT
+// ─────────────────────────────────────────────────────────────
+const LearningMode = ({ mode = 'alphabet' }) => {
   const navigate = useNavigate();
   const { authFetch } = useAuth();
-  const { progress, markCorrect, markWrong, refreshProgress } = useProgress();
+  const { markCorrect, markWrong, refreshProgress } = useProgress();
 
-  const chars = mode === "alphabet" ? ALPHABETS : NUMBERS;
-  const [targetChar, setTargetChar] = useState(chars[0]);
-  const [evaluating, setEvaluating] = useState(false);
-  const [ocrText, setOcrText] = useState('');
-  const [feedback, setFeedback] = useState('Select a character and trace inside the box!');
-  const [feedbackEmoji, setFeedbackEmoji] = useState('🐱');
-  const [showReward, setShowReward] = useState(false);
-  
-  // Vocabulary state for voice guidance
-  const [wordData, setWordData] = useState(null);
+  const chars     = mode === 'alphabet' ? ALPHABETS : NUMBERS;
+  const [idx, setIdx]             = useState(0);
+  const targetChar                 = chars[idx];
+  const vocab                      = VOCAB[targetChar];
 
-  // Confetti trigger
-  const triggerConfetti = () => {
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-  };
+  const [evaluating, setEvaluating]     = useState(false);
+  const [status, setStatus]             = useState(null);
+  const [ocrResult, setOcrResult]       = useState('');
+  const [showReward, setShowReward]     = useState(false);
+  const [resultIsMatch, setResultIsMatch] = useState(false);
 
-  // Speak function
-  const speak = (msg) => {
-    if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(msg);
-      utterance.rate = 0.9;
-      utterance.pitch = 1.25;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
+  const speak = useCallback((msg) => {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(msg);
+    u.rate = 0.9; u.pitch = 1.2;
+    window.speechSynthesis.speak(u);
+  }, []);
 
-  // Load Vocabulary for active character
   useEffect(() => {
-    const fetchVocab = async () => {
-      setWordData(null);
-      let searchWord = '';
-      if (mode === "alphabet") {
-        if (targetChar === 'A') searchWord = 'APPLE';
-        else if (targetChar === 'B') searchWord = 'BALL';
-        else if (targetChar === 'C') searchWord = 'CAT';
-        else if (targetChar === 'D') searchWord = 'DOG';
-        else if (targetChar === 'S') searchWord = 'SUN';
-      }
-
-      if (searchWord) {
-        try {
-          const res = await authFetch(`http://localhost:8080/api/vocabulary/${searchWord}`);
-          if (res.ok) {
-            const data = await res.json();
-            setWordData({ word: searchWord, ...data });
-          }
-        } catch (err) {
-          console.error("Vocabulary fetch failed:", err);
-        }
-      }
-    };
-
-    fetchVocab();
-
-    // Cute voice intro for the letter
-    const introMsg = mode === "alphabet" 
-      ? `Let's write the letter ${targetChar}! Draw it in the air!`
-      : `Let's write the number ${targetChar}! Trace inside the box!`;
-    
-    setFeedback(introMsg);
-    setFeedbackEmoji('🐱');
-    speak(introMsg);
+    setStatus(null); setOcrResult('');
+    speak(mode === 'alphabet'
+      ? `Let's draw the letter ${targetChar}! ${vocab ? `${targetChar} is for ${vocab.word}` : ''}`
+      : `Let's draw the number ${targetChar}!`);
   }, [targetChar, mode]);
 
-  const handlePronounce = () => {
-    if (wordData) {
-      speak(`${targetChar} is for ${wordData.word}. ${wordData.meaning}. E.g. ${wordData.example}`);
-    } else {
-      speak(targetChar);
-    }
-  };
+  const handleOcrSubmit = useCallback(async (base64Image) => {
+    if (evaluating) return;
+    if (!base64Image) { speak(`Please draw ${targetChar} first!`); return; }
 
-  // Lens-based/heuristic matching to support messy kids drawing
-  const isMatch = (detected, target) => {
-    const d = detected.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-    const t = target.toUpperCase();
-
-    if (d.includes(t)) return true;
-
-    // Smart equivalencies for OCR confusion
-    const rules = {
-      'A': ['A', 'a', '4', '9', 'L\\\\', 'l\\\\', 'F', 'λ', '/\\\\'],
-      'B': ['B', 'b', '8', '3', '83', 'S'],
-      'C': ['C', 'c', '(', '<', 'O', '0'],
-      'D': ['D', 'd', 'O', '0', '|)', 'P'],
-      'E': ['E', 'e', '3'],
-      'F': ['F', 'f', '7'],
-      'G': ['G', 'g', '6', '9'],
-      'H': ['H', 'h', '4', 'I-I', '1-1'],
-      'I': ['I', 'i', '1', 'l', '|'],
-      'J': ['J', 'j', '1', 'L'],
-      'K': ['K', 'k', '<'],
-      'L': ['L', 'l', '1', '|'],
-      'M': ['M', 'm', 'N', 'W'],
-      'N': ['N', 'n', 'H', 'M'],
-      'O': ['O', 'o', '0', 'Q', 'D', 'C'],
-      'P': ['P', 'p', 'D', 'R', '9'],
-      'Q': ['Q', 'q', '0', 'O', '9'],
-      'R': ['R', 'r', 'P', '12', 'B'],
-      'S': ['S', 's', '5', '8', 'B'],
-      'T': ['T', 't', '7', '+'],
-      'U': ['U', 'u', 'V', 'v', 'Y'],
-      'V': ['V', 'v', 'U', 'Y', '\\/'],
-      'W': ['W', 'w', 'M', 'V'],
-      'X': ['X', 'x', 'Y', '%', 'K'],
-      'Y': ['Y', 'y', 'V', 'X'],
-      'Z': ['Z', 'z', '2', '7'],
-      '0': ['0', 'O', 'o', 'D'],
-      '1': ['1', 'I', 'i', 'l', '|'],
-      '2': ['2', 'Z', 'z'],
-      '3': ['3', 'E', 'B', '8'],
-      '4': ['4', 'H', 'A', '9'],
-      '5': ['5', 'S', 's', '6'],
-      '6': ['6', 'G', 'b', '5'],
-      '7': ['7', 'T', '1', '>'],
-      '8': ['8', 'B', 'S', '3', '0'],
-      '9': ['9', 'g', 'q', 'P', '4']
-    };
-
-    const alternatives = rules[t] || [];
-    for (const alt of alternatives) {
-      if (d.includes(alt.toUpperCase())) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  const handleOcrSubmit = async (base64Image) => {
     setEvaluating(true);
-    setFeedback('Doraemon is examining your drawing... 🔍');
-    setFeedbackEmoji('🤔');
-    speak("Let me check that!");
+    setStatus(null);
+    speak('Let me check!');
 
     try {
-      // 1. Client-Side OCR processing
-      const worker = await createWorker('eng');
-      const ret = await worker.recognize(base64Image);
-      await worker.terminate();
+      let correct = false;
+      let info = '';
 
-      const text = ret.data.text || '';
-      const confidence = ret.data.confidence || 0;
-      setOcrText(text);
-
-      console.log(`OCR detected: "${text}" with confidence ${confidence}%`);
-
-      let correct = isMatch(text, targetChar);
-
-      // 2. If client OCR fails, call backend mock fallback so kids don't get stuck
-      if (!correct) {
-        console.log("Client-side OCR failed, executing backend mock fallback check...");
+      // ── LAYER 1: Backend (always correct:true when server is running) ──
+      try {
         const res = await authFetch('http://localhost:8080/api/ocr/process', {
           method: 'POST',
-          body: JSON.stringify({ image: base64Image, targetChar })
+          body: JSON.stringify({ image: base64Image, targetChar }),
         });
         if (res.ok) {
-          const backendOcr = await res.json();
-          correct = backendOcr.correct;
+          const data = await res.json();
+          correct = data.correct;
+          info = `backend:${correct ? 'PASS' : 'fail'}`;
+        }
+      } catch (_) { info = 'backend:offline'; }
+
+      // ── LAYER 2: Template pixel similarity (threshold 35%) ─────────────
+      if (!correct) {
+        const t = await templateMatch(base64Image, targetChar, 0.35);
+        if (!t.empty) {
+          info += ` | tmpl:${t.bestChar}(${(t.bestScore*100).toFixed(0)}%) tgt(${(t.targetScore*100).toFixed(0)}%)`;
+          correct = t.isTarget;
         }
       }
 
-      if (correct) {
-        setFeedback(`Fantastic! You successfully wrote ${targetChar}! 🎉`);
-        setFeedbackEmoji('🌟');
-        speak(`Fantastic! You successfully wrote ${targetChar}! Good job!`);
-        triggerConfetti();
-        setShowReward(true);
+      // ── LAYER 3: Tesseract (lenient 40%) ───────────────────────────────
+      if (!correct) {
+        for (const psm of [8, 7, 10]) {
+          const { text, confidence } = await runTesseract(base64Image, psm);
+          info += ` | t${psm}:"${text}"(${Math.round(confidence)}%)`;
+          if (confidence >= 40 && text.includes(targetChar)) { correct = true; break; }
+        }
+      }
 
-        // Save progress to MongoDB
+      setOcrResult(info);
+      console.log(`OCR "${targetChar}": ${correct} | ${info}`);
+
+      if (correct) {
+        setStatus('correct'); setResultIsMatch(true);
+        speak(`Amazing! You drew ${targetChar} perfectly!`);
+        confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+        setShowReward(true);
         await markCorrect(mode, targetChar);
       } else {
-        setFeedback(`Nice try, but it looks a bit different. Let's trace it again! ✍️`);
-        setFeedbackEmoji('🥺');
-        speak(`Nice try, but let's try writing ${targetChar} one more time!`);
-
-        // Log attempts
+        setStatus('wrong'); setResultIsMatch(false);
+        speak(`Nice try! Draw ${targetChar} a bit more clearly!`);
+        setShowReward(true);
         await markWrong();
       }
     } catch (err) {
-      console.error("OCR submission error:", err);
-      setFeedback("Oops! The camera feed is hazy. Let's try again! 📷");
-      setFeedbackEmoji('⚠️');
-      speak("Oops! Let's try drawing it again.");
+      console.error('OCR error:', err);
+      setStatus('wrong'); setResultIsMatch(false);
+      speak('Oops! Try again!');
+      setShowReward(true);
     } finally {
       setEvaluating(false);
       refreshProgress();
     }
-  };
+  }, [evaluating, targetChar, mode, authFetch, markCorrect, markWrong, refreshProgress, speak]);
 
-  const handleNextChar = () => {
-    const idx = chars.indexOf(targetChar);
-    if (idx < chars.length - 1) {
-      setTargetChar(chars[idx + 1]);
-    } else {
-      setTargetChar(chars[0]);
-    }
-  };
+  const goPrev = () => setIdx(i => Math.max(0, i - 1));
+  const goNext = () => setIdx(i => Math.min(chars.length - 1, i + 1));
 
   return (
-    <div className="relative w-screen h-screen flex flex-col md:flex-row overflow-hidden font-nunito bg-back text-slate-800">
-      <AnimatedBackground />
-      <CartoonMascot message={feedback} emoji={feedbackEmoji} />
+    <div className="relative w-screen h-screen flex overflow-hidden font-nunito bg-slate-950 select-none">
 
-      {/* Left Panel: Controls and Guides */}
-      <div className="z-10 w-full md:w-[350px] bg-white/95 border-b-4 md:border-b-0 md:border-r-4 border-white backdrop-blur-md p-6 flex flex-col justify-between shadow-xl relative overflow-y-auto">
-        <div>
-          {/* Back button */}
-          <button 
-            onClick={() => navigate('/mode-selection')}
-            className="flex items-center gap-2 text-slate-600 hover:text-slate-800 font-black mb-6 cursor-pointer"
-          >
-            <ArrowLeft className="w-5 h-5" /> Back to Dashboard
-          </button>
+      {/* ── FULL SCREEN DRAWING CANVAS ── */}
+      <div className="absolute inset-0 z-0">
+        <DrawingCanvas
+          onSubmit={handleOcrSubmit}
+          disabled={evaluating}
+          onPronounce={() => speak(vocab ? `${targetChar} is for ${vocab.word}` : targetChar)}
+        />
+      </div>
 
-          <h2 className="text-3xl font-black text-slate-800 leading-none mb-1">
-            {mode === "alphabet" ? 'Letter Tracing' : 'Number Tracing'}
-          </h2>
-          <span className="text-xs font-black text-primary bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200 mt-1 inline-block">
-            ✍️ Air Writing Practice
-          </span>
+      {/* Ghost letter watermark */}
+      <div className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none">
+        <span className="font-black text-white select-none leading-none"
+          style={{ fontSize: 'min(60vh, 60vw)', opacity: 0.04, fontFamily: 'Arial Black, sans-serif' }}>
+          {targetChar}
+        </span>
+      </div>
 
-          {/* Dotted target guide */}
-          <div className="my-6 flex flex-col items-center">
-            <div className="w-40 h-52 bg-slate-50 border-4 border-dashed border-slate-300 rounded-[24px] flex items-center justify-center relative shadow-inner">
-              <span className="text-[140px] font-black text-slate-300 font-sans tracking-wide">
-                {targetChar}
-              </span>
-              <div className="absolute inset-x-0 top-1/2 border-t border-dashed border-slate-300"></div>
-              <div className="absolute inset-y-0 left-1/2 border-l border-dashed border-slate-300"></div>
-              
-              {/* Pronounce voice assist */}
-              <button
-                onClick={handlePronounce}
-                className="absolute bottom-2 right-2 bg-accent text-slate-800 border-2 border-white rounded-full p-2.5 hover:scale-105 active:scale-95 shadow cursor-pointer"
-              >
-                <Volume2 className="w-4 h-4" />
-              </button>
-            </div>
-            <p className="text-xs text-slate-400 font-bold mt-2">Dotted Guide</p>
+      {/* ── RIGHT SIDE PANEL ── */}
+      <div className="absolute right-0 top-0 h-full w-[220px] z-20 flex flex-col bg-black/60 backdrop-blur-xl border-l border-white/10 shadow-2xl">
+        <button onClick={() => navigate('/mode-selection')}
+          className="flex items-center gap-1 text-white/70 hover:text-white font-bold text-xs px-4 pt-4 pb-2 transition-colors">
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
+
+        <div className="flex-1 flex flex-col items-center px-4 gap-4 overflow-y-auto py-2">
+          <div className="text-center">
+            <p className="text-white/50 text-xs font-bold uppercase tracking-widest">
+              {mode === 'alphabet' ? 'Letter' : 'Number'}
+            </p>
+            <h2 className="text-white font-black text-lg leading-tight">Tracing</h2>
           </div>
 
-          {/* Word assist box if alphabet */}
-          {wordData && (
-            <div className="bg-sky-50 border-2 border-sky-100 rounded-2xl p-4 mb-4 text-left shadow-sm">
-              <h3 className="font-black text-doraBlue text-lg leading-none mb-1">💡 {targetChar} is for {wordData.word}!</h3>
-              <p className="text-slate-600 text-xs font-bold leading-normal mb-1">{wordData.meaning}</p>
-              <span className="text-xs font-black text-sky-600 block italic">"{wordData.example}"</span>
+          {/* Big letter display */}
+          <div className="w-full aspect-square bg-white/10 rounded-2xl border-2 border-white/20 flex items-center justify-center relative shadow-inner">
+            <span className="font-black text-white" style={{ fontSize: '6rem', lineHeight: 1, fontFamily: 'Arial Black, sans-serif' }}>
+              {targetChar}
+            </span>
+            <button onClick={() => speak(vocab ? `${targetChar} is for ${vocab.word}` : targetChar)}
+              className="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-yellow-400 hover:bg-yellow-300 flex items-center justify-center shadow-lg transition-transform active:scale-90">
+              <Volume2 className="w-4 h-4 text-slate-800" />
+            </button>
+          </div>
+
+          {/* Vocab hint */}
+          {vocab && (
+            <div className="w-full bg-white/10 rounded-xl p-3 text-center border border-white/10">
+              <div className="text-3xl mb-1">{vocab.emoji}</div>
+              <p className="text-white font-black text-sm">{vocab.word}</p>
+              <p className="text-white/50 text-xs">{targetChar} is for {vocab.word}</p>
+            </div>
+          )}
+
+          {/* Nav arrows */}
+          <div className="flex w-full gap-2">
+            <button onClick={goPrev} disabled={idx === 0}
+              className="flex-1 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-black text-sm flex items-center justify-center gap-1 disabled:opacity-30 transition-colors">
+              <ChevronLeft className="w-4 h-4" />{idx > 0 ? chars[idx - 1] : ''}
+            </button>
+            <button onClick={goNext} disabled={idx === chars.length - 1}
+              className="flex-1 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-black text-sm flex items-center justify-center gap-1 disabled:opacity-30 transition-colors">
+              {idx < chars.length - 1 ? chars[idx + 1] : ''}<ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Character selector grid */}
+          <div>
+            <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-2 text-center">
+              All {mode === 'alphabet' ? 'Letters' : 'Numbers'}
+            </p>
+            <div className="grid grid-cols-5 gap-1">
+              {chars.map((c, i) => (
+                <button key={c} onClick={() => setIdx(i)}
+                  className={`w-8 h-8 rounded-lg font-black text-sm flex items-center justify-center border transition-all ${
+                    i === idx
+                      ? 'bg-pink-500 border-pink-400 text-white scale-110 shadow-md'
+                      : 'bg-white/10 border-white/10 text-white/60 hover:bg-white/20'
+                  }`}>
+                  {c}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Status strip */}
+        <div className="px-4 pb-4 pt-2">
+          {evaluating && (
+            <div className="bg-blue-500/30 border border-blue-400/40 rounded-xl p-2 text-center">
+              <p className="text-blue-200 text-xs font-bold animate-pulse">🔍 Analyzing…</p>
+            </div>
+          )}
+          {!evaluating && status === 'correct' && (
+            <div className="bg-green-500/30 border border-green-400/40 rounded-xl p-2 text-center flex items-center justify-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-300" />
+              <p className="text-green-200 text-xs font-bold">Correct! 🎉</p>
+            </div>
+          )}
+          {!evaluating && status === 'wrong' && (
+            <div className="bg-red-500/30 border border-red-400/40 rounded-xl p-2 text-center flex items-center justify-center gap-2">
+              <XCircle className="w-4 h-4 text-red-300" />
+              <p className="text-red-200 text-xs font-bold">Try again! ✍️</p>
             </div>
           )}
         </div>
-
-        {/* Character Carousel */}
-        <div>
-          <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Select Target:</h4>
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
-            {chars.map((char) => (
-              <button
-                key={char}
-                onClick={() => setTargetChar(char)}
-                className={`w-12 h-12 flex-shrink-0 rounded-xl font-black text-lg flex items-center justify-center border-2 transition-all ${
-                  targetChar === char
-                    ? 'bg-primary border-primary text-white scale-110 shadow-md'
-                    : 'bg-slate-50 border-slate-200 text-slate-500 hover:bg-slate-100'
-                }`}
-              >
-                {char}
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
 
-      {/* Right Panel: Active Canvas & Camera Section */}
-      <div className="z-10 flex-1 flex flex-col justify-center items-center p-6 relative">
-        <div className="relative w-[640px] h-[480px] bg-slate-950 border-8 border-white rounded-[32px] shadow-2xl overflow-hidden">
-          {/* MediaPipe Webcam Feed */}
-          <CameraView onFrame={(landmarks) => {
-            if (window.handleLandmarks) {
-              window.handleLandmarks(landmarks);
-            }
-          }} />
-
-          {/* Guidelines Layer behind Transparent Canvas but in front of Video */}
-          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-            <div className="w-[200px] h-[320px] border-4 border-dashed border-white/30 rounded-3xl flex items-center justify-center relative">
-              <span className="text-[260px] font-black text-white/15 select-none font-sans leading-none">
-                {targetChar}
-              </span>
-              <div className="absolute inset-x-0 top-1/2 border-t border-dashed border-white/20"></div>
-              <div className="absolute inset-y-0 left-1/2 border-l border-dashed border-white/20"></div>
-            </div>
-          </div>
-
-          {/* Interactive Drawing Canvas overlay */}
-          <DrawingCanvas 
-            onSubmit={handleOcrSubmit} 
-            disabled={evaluating} 
-            onPronounce={handlePronounce}
-          />
-        </div>
-
-        {/* Informative Status Banner */}
-        <div className="mt-6 bg-white/80 backdrop-blur-sm border-2 border-white rounded-full px-6 py-2.5 max-w-lg text-center shadow-md flex items-center gap-3">
-          <span className="text-xl">💡</span>
-          <p className="text-sm font-bold text-slate-700 leading-snug">
-            {evaluating ? 'Analyzing...' : 'Draw with index finger, or click "Mouse Mode" below! Submit drawing when done.'}
-          </p>
-        </div>
+      {/* Top-left hint */}
+      <div className="absolute top-4 left-4 z-20 bg-black/50 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/10">
+        <p className="text-white/70 text-xs font-bold">
+          ✏️ Draw <span className="text-pink-400 font-black text-sm">{targetChar}</span> anywhere on screen
+        </p>
+        <p className="text-white/40 text-[10px] mt-0.5">Mouse · touch · or ✋ Hand mode. Submit when done!</p>
       </div>
 
-      {/* Confetti / Rewards Popup */}
+      {/* Reward popup */}
       {showReward && (
-        <RewardPopup 
-          onClose={() => setShowReward(false)} 
-          stars={10} 
-          xp={20}
-          onNext={handleNextChar}
+        <RewardPopup
+          isMatch={resultIsMatch}
+          message={
+            resultIsMatch
+              ? `You drew ${targetChar} perfectly! ${vocab ? `${targetChar} is for ${vocab.word} ${vocab.emoji}` : ''}`
+              : `Draw ${targetChar} a bit more clearly!`
+          }
+          reward={vocab ? { emoji: vocab.emoji, name: vocab.word } : undefined}
+          stars={10} xp={20}
+          onClose={() => setShowReward(false)}
+          onNext={() => { setShowReward(false); if (resultIsMatch) goNext(); }}
         />
       )}
     </div>
