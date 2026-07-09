@@ -1,100 +1,169 @@
-# WriteSpeak AI ✍️ Companion Air Writing Educational Platform
+# ✨ WriteSpeak AI — Kids Air Writing Adventure
 
-WriteSpeak AI is an interactive, gamified full-stack educational platform designed to teach children alphabets and numbers through real-time air writing, computer vision gesture detection, voice guidelines, and progress rewards!
-
-## 📸 Screenshots
-
-| Welcome Screen (Guest Options) | Learning Dashboard (Guest Mode) |
-| :---: | :---: |
-| ![Welcome Screen](screenshots/welcome_screen.png) | ![Dashboard](screenshots/dashboard.png) |
+> **Draw letters & numbers in the air with your hand — powered by AI & Computer Vision!**
+>
+> © 2025 WriteSpeak AI · All rights reserved by **Vishisht**
 
 ---
 
-## 🎨 Core Features
+## 📸 App Screenshots
 
-1. **👦 Cute Student Dashboard:**
-   - Visual statistics showing collected **Gold Stars** 🌟, **XP Score** 🏆, and **Streaks** 🔥.
-   - Interactive badge collection display mapping user milestones.
+### 🏠 Welcome Page
+![Welcome Page](docs/screenshots/welcome.png)
 
-2. **✋ Hand-Tracking Air Writing Board:**
-   - Real-time hand tracking and index-finger contour drawing powered by **MediaPipe Hands**.
-   - Custom gesture thresholds (Damping) to handle dropped camera frames.
-   - Fallback click-and-drag **Mouse Mode** for offline/webcam-less devices.
-   - Dotted guidelines centered inside the drawing box (hidden during tests to assess memory).
+### 🔑 Login Page
+![Login Page](docs/screenshots/login.png)
 
-3. **📝 Intelligent OCR Assessments:**
-   - Real-time client-side OCR evaluation using **Tesseract.js WebAssembly**.
-   - Custom matching heuristics (e.g., handles children's messy handwriting, OCR print-style typos).
-   - Mock OCR fallback endpoints to prevent kid frustration.
+### 🎒 Sign Up Page
+![Signup Page](docs/screenshots/signup.png)
 
-4. **🔊 Voice Guidance & Vocabulary:**
-   - Injected kid-friendly Web Speech Synthesis voicing characters, vocabulary phrases, and instructions.
-   - Backend `/api/vocabulary` endpoints providing examples and definitions (e.g., "A is for Apple!").
+### 🎮 Dashboard (Mode Selection)
+![Dashboard](docs/screenshots/dashboard.png)
 
-5. **🎲 Snakes & Ladders Board Game:**
-   - 10x10 alternating grid board game playable directly against a simulated **Doraemon AI** player.
-   - Moves animated with GSAP dice rolls and token sliding.
-   - Grants +50 bonus stars upon winning to encourage learning loops.
+### ✍️ Learning Mode (Working Area)
+![Learning Mode](docs/screenshots/learning.png)
 
-6. **📊 Parent Performance Portal:**
-   - Log summaries of previous quiz assessments.
-   - Interactive accuracy trend paths visualized with responsive custom SVG line charts.
+### 👨‍👩‍👦 Parent Performance Portal
+![Parent Dashboard](docs/screenshots/parent.png)
 
 ---
 
-## 💻 Tech Stack
+## 🚀 Features
+
+| Feature | Description |
+|---|---|
+| ✋ Hand Gesture Drawing | MediaPipe-powered real-time hand tracking with Kalman filter smoothing |
+| 🔤 Alphabet Learning | Trace A–Z in the air with ghost letter guide |
+| 🔢 Number Learning | Trace 0–9 with Doraemon vocabulary hints |
+| 🏆 Test Mode | Quick assessment with XP & star rewards |
+| 🎲 Snake & Ladder | Board game unlocked after first assessment |
+| 🧠 Smart OCR | 3-layer pipeline: Backend API → Template Match (Top-3) → Tesseract |
+| 📊 Parent Dashboard | Performance trend chart, accuracy stats, history log |
+| 🔐 Offline Auth | Works offline — localStorage fallback when backend unreachable |
+| ✨ Royal UI | Royal dark Doraemon night-sky theme across all pages |
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- **React.js** (Vite SPA)
-- **Tailwind CSS v4** & **PostCSS** (CSS-first `@theme` styling configuration)
-- **GSAP** (Smooth micro-animations and dice rolling)
-- **Tesseract.js** (Client-side WebAssembly OCR engine)
-- **MediaPipe Hands** (Hand gesture landmark coordinates tracking)
+- **React 18** + Vite
+- **TailwindCSS** for utility classes
+- **MediaPipe Hands** — hand landmark detection
+- **Tesseract.js** — client-side OCR fallback
+- **canvas-confetti** — celebration animations
+- **lucide-react** — icons
 
 ### Backend
-- **Java Spring Boot** (JDK 25 compatibility with lombok `-proc:full`)
-- **Spring Security** & **JWT Auth** (Bearer authorization token headers validation)
-- **Spring Data MongoDB** (Persisting user progress logs and test history results)
-- **FuzzyWuzzy** (Fuzzy matching algorithms for spoken voice checks)
+- **Java 17** + **Spring Boot 3**
+- **Spring Security** + JWT authentication
+- **MongoDB** — user data, progress, test results
+- **Custom OCR Service** — primary letter recognition endpoint
 
 ---
 
-## 📁 Workspace Directory Structure
+## 🖥️ Local Setup
 
-```
-writespeak-ai/
-├── README.md               # Root project documentation
-├── backend/                # Java Spring Boot Service
-│   ├── pom.xml             # Maven dependencies configuration
-│   └── src/main/java       # Source classes (Controllers, Services, Models, Configs)
-├── frontend/               # React + Tailwind + GSAP SPA Client
-│   ├── index.html          # CDN script loads for MediaPipe
-│   ├── src/                # Components, context state providers, and custom hooks
-│   └── package.json        # Dependencies (Tesseract, GSAP, Lucide)
-└── maven_temp/             # Local offline Maven binary (apache-maven-3.9.16)
-```
+### Prerequisites
+- Node.js 18+
+- Java 17+
+- MongoDB running locally
 
----
-
-## 🚀 Step-by-Step Launch Instructions
-
-Ensure a MongoDB instance is running locally or specify your custom MongoDB Atlas cluster connection string.
-
-### Step 1: Start the Spring Boot Backend
-From the root workspace directory, run:
-```powershell
-cd backend
-# Run using the workspace local Maven binary:
-..\maven_temp\apache-maven-3.9.16\bin\mvn.cmd spring-boot:run
-```
-*Note: If using MongoDB Atlas, export your connection string first:*
-*   **PowerShell:** `$env:SPRING_DATA_MONGODB_URI="your-atlas-uri"`
-*   **CMD:** `set SPRING_DATA_MONGODB_URI=your-atlas-uri`
-
-### Step 2: Start the Frontend Client
-From the root workspace directory, run:
-```powershell
+### Frontend
+```bash
 cd frontend
+npm install
 npm run dev
+# Opens at http://localhost:5173
 ```
-Open [http://localhost:5173/](http://localhost:5173/) in your web browser and start tracing! 🚀
+
+### Backend
+```bash
+cd backend
+./mvnw spring-boot:run
+# API at http://localhost:8080
+```
+
+> **Note:** The app works fully offline — if the backend is not running, authentication uses a localStorage fallback automatically.
+
+---
+
+## 📁 Project Structure
+
+```
+project/
+├── frontend/
+│   └── src/
+│       ├── components/
+│       │   ├── WelcomeScreen.jsx     # Royal landing page with Doraemon
+│       │   ├── LoginPage.jsx         # Royal login with glassmorphism card
+│       │   ├── SignupPage.jsx        # Royal signup with avatar selector
+│       │   ├── ModeSelection.jsx     # Royal dashboard with hover-glow cards
+│       │   ├── LearningMode.jsx      # Drawing canvas + royal right panel
+│       │   ├── DrawingCanvas.jsx     # MediaPipe + Kalman + Bezier curves
+│       │   ├── ParentDashboard.jsx   # Performance portal with trend chart
+│       │   ├── TestMode.jsx          # Assessment mode
+│       │   ├── SnakeLadderGame.jsx   # Board game
+│       │   └── Copyright.jsx        # © Vishisht footer badge
+│       ├── context/
+│       │   ├── AuthContext.jsx       # JWT auth + localStorage
+│       │   └── SettingsContext.jsx
+│       ├── hooks/
+│       │   └── useProgress.js
+│       └── utils/
+│           └── api.js               # Offline-first auth API
+└── backend/
+    └── src/main/java/com/writespeak/
+        ├── controller/              # REST endpoints
+        ├── service/                 # Business logic + OCR
+        ├── model/                   # MongoDB models
+        └── config/                  # Security + JWT + CORS
+```
+
+---
+
+## 🎨 Design System
+
+| Token | Value | Usage |
+|---|---|---|
+| `#0a0e2e` | Deep Navy | Page backgrounds |
+| `#00A5DC` | Doraemon Blue | Primary accent, glows |
+| `#FF4E8E` | Doraemon Pink | Secondary accent, CTA |
+| `#FFD700` | Royal Gold | Title shimmer, stars |
+| `#7C3AED` | Royal Purple | Game card |
+| Glassmorphism | `backdrop-blur-xl` | All cards/panels |
+
+---
+
+## 🤖 OCR Pipeline
+
+```
+User draws letter
+       ↓
+1. Backend API (localhost:8080) — primary recognition
+       ↓ (if offline or fails)
+2. Template Match — NCC pixel similarity against all 36 chars
+   → Top-3 ranking check (target must rank in top 3)
+       ↓ (if still uncertain)
+3. Tesseract.js — 40% confidence threshold, PSM 8/7/10
+       ↓
+Result: ✅ Correct / ❌ Try Again
+```
+
+---
+
+## ✋ Hand Gesture Controls
+
+| Gesture | Action |
+|---|---|
+| ☝️ Index finger up | Draw mode — tracks fingertip |
+| ✊ Fist (hold 1s) | Submit drawing for OCR |
+| 🖐️ Open palm (hold 1s) | Clear canvas |
+
+**Smoothing:** Kalman 1D filter (R=0.12, Q=0.6) + Catmull-Rom Bezier curves for fluid strokes.
+
+---
+
+## 📄 License
+
+© 2025 WriteSpeak AI — All rights reserved by **Vishisht**.

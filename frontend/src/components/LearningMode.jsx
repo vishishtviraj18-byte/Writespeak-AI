@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useProgress } from '../hooks/useProgress';
 import DrawingCanvas from './DrawingCanvas';
 import RewardPopup from './RewardPopup';
+import Copyright from './Copyright';
 import { ArrowLeft, Volume2, ChevronLeft, ChevronRight, CheckCircle, XCircle } from 'lucide-react';
 import { createWorker } from 'tesseract.js';
 import confetti from 'canvas-confetti';
@@ -235,7 +236,33 @@ const LearningMode = ({ mode = 'alphabet' }) => {
   const goNext = () => setIdx(i => Math.min(chars.length - 1, i + 1));
 
   return (
-    <div className="relative w-screen h-screen flex overflow-hidden font-nunito bg-slate-950 select-none">
+    <div className="relative w-screen h-screen flex overflow-hidden select-none"
+      style={{ background: 'linear-gradient(135deg,#060a1f 0%,#0a1640 50%,#05112a 100%)' }}>
+
+      <style>{`
+        @keyframes twinkle2 { 0%,100%{opacity:.1;transform:scale(1)} 50%{opacity:.7;transform:scale(1.4)} }
+        @keyframes glowPulse { 0%,100%{box-shadow:0 0 20px rgba(0,165,220,0.3)} 50%{box-shadow:0 0 40px rgba(0,165,220,0.7)} }
+        @keyframes shimmerGold {
+          0%{background-position:-200% center} 100%{background-position:200% center}
+        }
+        .letter-glow { animation: glowPulse 2.5s ease-in-out infinite; }
+        .gold-text {
+          background: linear-gradient(90deg,#FFD700 0%,#FFF 40%,#FFD700 60%,#FFE566 100%);
+          background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+          background-clip:text; animation: shimmerGold 3s linear infinite;
+        }
+      `}</style>
+
+      {/* Twinkling stars on drawing canvas */}
+      {Array.from({length:30},(_,i)=>i).map(i => (
+        <div key={i} className="absolute rounded-full bg-white pointer-events-none"
+          style={{
+            width: Math.random()*2+1, height: Math.random()*2+1,
+            top:`${Math.random()*100}%`, left:`${Math.random()*75}%`,
+            opacity: Math.random()*0.4+0.1,
+            animation:`twinkle2 ${Math.random()*3+2}s ${Math.random()*5}s ease-in-out infinite`,
+          }} />
+      ))}
 
       {/* ── FULL SCREEN DRAWING CANVAS ── */}
       <div className="absolute inset-0 z-0">
@@ -247,73 +274,129 @@ const LearningMode = ({ mode = 'alphabet' }) => {
       </div>
 
       {/* Ghost letter watermark */}
-      <div className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none">
-        <span className="font-black text-white select-none leading-none"
-          style={{ fontSize: 'min(60vh, 60vw)', opacity: 0.04, fontFamily: 'Arial Black, sans-serif' }}>
+      <div className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none"
+        style={{ paddingRight: 220 }}>
+        <span className="font-black select-none leading-none"
+          style={{ fontSize:'min(55vh,50vw)', opacity:0.05, fontFamily:'Arial Black,sans-serif',
+            color:'white', textShadow:'0 0 80px rgba(0,165,220,0.3)' }}>
           {targetChar}
         </span>
       </div>
 
-      {/* ── RIGHT SIDE PANEL ── */}
-      <div className="absolute right-0 top-0 h-full w-[220px] z-20 flex flex-col bg-black/60 backdrop-blur-xl border-l border-white/10 shadow-2xl">
+      {/* Top-left hint badge */}
+      <div className="absolute top-4 left-4 z-20 backdrop-blur-md rounded-2xl px-4 py-2"
+        style={{ background:'rgba(0,20,60,0.7)', border:'1px solid rgba(0,165,220,0.25)' }}>
+        <p className="text-xs font-bold" style={{ color:'rgba(255,255,255,0.6)' }}>
+          ✏️ Draw{' '}
+          <span className="font-black text-sm" style={{ color:'#FF5E7E' }}>{targetChar}</span>
+          {' '}anywhere on screen
+        </p>
+        <p className="text-[10px] mt-0.5" style={{ color:'rgba(255,255,255,0.3)' }}>
+          Mouse · Touch · ✋ Hand mode
+        </p>
+      </div>
+
+      {/* ── ROYAL RIGHT SIDE PANEL ── */}
+      <div className="absolute right-0 top-0 h-full w-[230px] z-20 flex flex-col backdrop-blur-2xl"
+        style={{
+          background: 'linear-gradient(180deg, rgba(5,15,50,0.95) 0%, rgba(8,20,60,0.95) 100%)',
+          borderLeft: '1px solid rgba(0,165,220,0.25)',
+          boxShadow: '-8px 0 40px rgba(0,0,0,0.5)',
+        }}>
+
+        {/* Top decorative line */}
+        <div className="h-0.5 w-full"
+          style={{ background:'linear-gradient(90deg,transparent,#00A5DC,#FF4E8E,transparent)' }} />
+
+        {/* Back button */}
         <button onClick={() => navigate('/mode-selection')}
-          className="flex items-center gap-1 text-white/70 hover:text-white font-bold text-xs px-4 pt-4 pb-2 transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back
+          className="flex items-center gap-1.5 mx-4 mt-4 mb-1 px-3 py-2 rounded-xl font-bold text-xs transition-all"
+          style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.1)', color:'rgba(255,255,255,0.6)' }}
+          onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.12)'}
+          onMouseLeave={e=>e.currentTarget.style.background='rgba(255,255,255,0.06)'}>
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to Menu
         </button>
 
-        <div className="flex-1 flex flex-col items-center px-4 gap-4 overflow-y-auto py-2">
-          <div className="text-center">
-            <p className="text-white/50 text-xs font-bold uppercase tracking-widest">
-              {mode === 'alphabet' ? 'Letter' : 'Number'}
-            </p>
-            <h2 className="text-white font-black text-lg leading-tight">Tracing</h2>
-          </div>
+        {/* Mode label */}
+        <div className="text-center px-4 py-1">
+          <span className="text-[10px] font-black uppercase tracking-widest px-3 py-0.5 rounded-full"
+            style={{ background:'rgba(0,165,220,0.15)', border:'1px solid rgba(0,165,220,0.3)', color:'#7DD3F7' }}>
+            {mode === 'alphabet' ? '🔤 Letter Tracing' : '🔢 Number Tracing'}
+          </span>
+        </div>
 
-          {/* Big letter display */}
-          <div className="w-full aspect-square bg-white/10 rounded-2xl border-2 border-white/20 flex items-center justify-center relative shadow-inner">
-            <span className="font-black text-white" style={{ fontSize: '6rem', lineHeight: 1, fontFamily: 'Arial Black, sans-serif' }}>
+        <div className="flex-1 flex flex-col items-center px-4 gap-3 overflow-y-auto py-2">
+
+          {/* BIG letter display — royal glow card */}
+          <div className="letter-glow w-full aspect-square rounded-2xl flex items-center justify-center relative"
+            style={{
+              background:'linear-gradient(135deg,rgba(0,165,220,0.12),rgba(0,80,140,0.2))',
+              border:'2px solid rgba(0,165,220,0.35)',
+            }}>
+            <span className="font-black leading-none select-none"
+              style={{ fontSize:'5.5rem', fontFamily:'Arial Black,sans-serif',
+                color:'white', textShadow:'0 0 40px rgba(0,165,220,0.8),0 4px 0 rgba(0,50,100,0.8)' }}>
               {targetChar}
             </span>
+            {/* Sound button */}
             <button onClick={() => speak(vocab ? `${targetChar} is for ${vocab.word}` : targetChar)}
-              className="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-yellow-400 hover:bg-yellow-300 flex items-center justify-center shadow-lg transition-transform active:scale-90">
-              <Volume2 className="w-4 h-4 text-slate-800" />
+              className="absolute bottom-2 right-2 w-8 h-8 rounded-full flex items-center justify-center transition-transform active:scale-90 shadow-lg"
+              style={{ background:'linear-gradient(135deg,#FFD700,#F4A700)', boxShadow:'0 4px 12px rgba(255,215,0,0.5)' }}>
+              <Volume2 className="w-3.5 h-3.5 text-slate-800" />
             </button>
           </div>
 
           {/* Vocab hint */}
           {vocab && (
-            <div className="w-full bg-white/10 rounded-xl p-3 text-center border border-white/10">
-              <div className="text-3xl mb-1">{vocab.emoji}</div>
+            <div className="w-full rounded-xl p-3 text-center"
+              style={{ background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.08)' }}>
+              <div className="text-2xl mb-1">{vocab.emoji}</div>
               <p className="text-white font-black text-sm">{vocab.word}</p>
-              <p className="text-white/50 text-xs">{targetChar} is for {vocab.word}</p>
+              <p className="text-[10px] mt-0.5" style={{ color:'rgba(255,255,255,0.4)' }}>
+                {targetChar} is for {vocab.word}
+              </p>
             </div>
           )}
 
-          {/* Nav arrows */}
+          {/* Nav prev/next */}
           <div className="flex w-full gap-2">
             <button onClick={goPrev} disabled={idx === 0}
-              className="flex-1 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-black text-sm flex items-center justify-center gap-1 disabled:opacity-30 transition-colors">
-              <ChevronLeft className="w-4 h-4" />{idx > 0 ? chars[idx - 1] : ''}
+              className="flex-1 py-2 rounded-xl font-black text-xs flex items-center justify-center gap-1 transition-all disabled:opacity-25"
+              style={{ background:'rgba(255,78,142,0.12)', border:'1px solid rgba(255,78,142,0.25)', color:'#FF9EBA' }}
+              onMouseEnter={e=>!e.currentTarget.disabled&&(e.currentTarget.style.background='rgba(255,78,142,0.25)')}
+              onMouseLeave={e=>e.currentTarget.style.background='rgba(255,78,142,0.12)'}>
+              <ChevronLeft className="w-3.5 h-3.5" />{idx > 0 ? chars[idx-1] : ''}
             </button>
-            <button onClick={goNext} disabled={idx === chars.length - 1}
-              className="flex-1 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-black text-sm flex items-center justify-center gap-1 disabled:opacity-30 transition-colors">
-              {idx < chars.length - 1 ? chars[idx + 1] : ''}<ChevronRight className="w-4 h-4" />
+            <button onClick={goNext} disabled={idx === chars.length-1}
+              className="flex-1 py-2 rounded-xl font-black text-xs flex items-center justify-center gap-1 transition-all disabled:opacity-25"
+              style={{ background:'rgba(0,165,220,0.12)', border:'1px solid rgba(0,165,220,0.25)', color:'#7DD3F7' }}
+              onMouseEnter={e=>!e.currentTarget.disabled&&(e.currentTarget.style.background='rgba(0,165,220,0.25)')}
+              onMouseLeave={e=>e.currentTarget.style.background='rgba(0,165,220,0.12)'}>
+              {idx < chars.length-1 ? chars[idx+1] : ''}<ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          {/* Character selector grid */}
-          <div>
-            <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-2 text-center">
+          {/* Character grid */}
+          <div className="w-full">
+            <p className="text-[10px] font-black uppercase tracking-widest mb-2 text-center"
+              style={{ color:'rgba(255,255,255,0.3)' }}>
               All {mode === 'alphabet' ? 'Letters' : 'Numbers'}
             </p>
             <div className="grid grid-cols-5 gap-1">
               {chars.map((c, i) => (
                 <button key={c} onClick={() => setIdx(i)}
-                  className={`w-8 h-8 rounded-lg font-black text-sm flex items-center justify-center border transition-all ${
-                    i === idx
-                      ? 'bg-pink-500 border-pink-400 text-white scale-110 shadow-md'
-                      : 'bg-white/10 border-white/10 text-white/60 hover:bg-white/20'
-                  }`}>
+                  className="w-8 h-8 rounded-lg font-black text-xs flex items-center justify-center transition-all"
+                  style={i === idx ? {
+                    background:'linear-gradient(135deg,#FF4E8E,#C70053)',
+                    border:'1px solid rgba(255,78,142,0.6)',
+                    color:'white',
+                    transform:'scale(1.15)',
+                    boxShadow:'0 0 12px rgba(255,78,142,0.6)',
+                  } : {
+                    background:'rgba(255,255,255,0.06)',
+                    border:'1px solid rgba(255,255,255,0.08)',
+                    color:'rgba(255,255,255,0.5)',
+                  }}>
                   {c}
                 </button>
               ))}
@@ -324,20 +407,23 @@ const LearningMode = ({ mode = 'alphabet' }) => {
         {/* Status strip */}
         <div className="px-4 pb-4 pt-2">
           {evaluating && (
-            <div className="bg-blue-500/30 border border-blue-400/40 rounded-xl p-2 text-center">
-              <p className="text-blue-200 text-xs font-bold animate-pulse">🔍 Analyzing…</p>
+            <div className="rounded-xl p-2.5 text-center"
+              style={{ background:'rgba(0,165,220,0.15)', border:'1px solid rgba(0,165,220,0.3)' }}>
+              <p className="text-xs font-bold animate-pulse" style={{ color:'#7DD3F7' }}>🔍 Analyzing…</p>
             </div>
           )}
           {!evaluating && status === 'correct' && (
-            <div className="bg-green-500/30 border border-green-400/40 rounded-xl p-2 text-center flex items-center justify-center gap-2">
-              <CheckCircle className="w-4 h-4 text-green-300" />
-              <p className="text-green-200 text-xs font-bold">Correct! 🎉</p>
+            <div className="rounded-xl p-2.5 text-center flex items-center justify-center gap-2"
+              style={{ background:'rgba(52,211,153,0.15)', border:'1px solid rgba(52,211,153,0.3)' }}>
+              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              <p className="text-xs font-black text-emerald-300">Correct! 🎉</p>
             </div>
           )}
           {!evaluating && status === 'wrong' && (
-            <div className="bg-red-500/30 border border-red-400/40 rounded-xl p-2 text-center flex items-center justify-center gap-2">
-              <XCircle className="w-4 h-4 text-red-300" />
-              <p className="text-red-200 text-xs font-bold">Try again! ✍️</p>
+            <div className="rounded-xl p-2.5 text-center flex items-center justify-center gap-2"
+              style={{ background:'rgba(248,113,113,0.15)', border:'1px solid rgba(248,113,113,0.3)' }}>
+              <XCircle className="w-4 h-4 text-red-400" />
+              <p className="text-xs font-black text-red-300">Try again! ✍️</p>
             </div>
           )}
         </div>
@@ -366,6 +452,8 @@ const LearningMode = ({ mode = 'alphabet' }) => {
           onNext={() => { setShowReward(false); if (resultIsMatch) goNext(); }}
         />
       )}
+
+      <Copyright variant="dark" position="bottom-right" />
     </div>
   );
 };
