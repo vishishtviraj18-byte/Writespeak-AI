@@ -29,7 +29,7 @@
 ### 🎓 Teacher Dashboard — Educator Control Panel
 ![Teacher Dashboard](docs/screenshots/teacher_dashboard.png)
 
-![Teacher Dashboard Activity Feed](docs/screenshots/teacher_dashboard_bottom.png)
+
 
 ---
 
