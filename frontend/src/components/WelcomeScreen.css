@@ -1,0 +1,263 @@
+/* ====================================================
+   WelcomeScreen.css – Doraemon-Themed Landing Page
+   ==================================================== */
+
+/* Root fullscreen */
+.ws-root {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'Nunito', 'Comic Sans MS', sans-serif;
+}
+
+/* ── Sky ── */
+.ws-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #87CEEB 0%, #d4f1ff 60%, #ffe4b5 100%);
+  animation: skyShift 8s infinite alternate ease-in-out;
+  z-index: 0;
+}
+
+@keyframes skyShift {
+  from { background: linear-gradient(180deg, #87CEEB 0%, #d4f1ff 60%, #ffe4b5 100%); }
+  to   { background: linear-gradient(180deg, #5ba3d0 0%, #c0e8f8 60%, #ffd59e 100%); }
+}
+
+/* ── Stars ── */
+.ws-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ws-star {
+  position: absolute;
+  background: #FFD700;
+  border-radius: 50%;
+  opacity: 0.85;
+  box-shadow: 0 0 8px #FFD700;
+  animation: twinkle 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes twinkle {
+  from { transform: scale(1);   opacity: 0.9; }
+  to   { transform: scale(0.5); opacity: 0.2; }
+}
+
+/* ── Ground ── */
+.ws-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 110px;
+  background: linear-gradient(180deg, #7ec850 0%, #5aab2b 100%);
+  border-radius: 60% 60% 0 0 / 30px 30px 0 0;
+  z-index: 2;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+}
+
+/* ── Clouds ── */
+.ws-cloud {
+  position: absolute;
+  top: 14%;
+  width: 180px;
+  height: 60px;
+  background: white;
+  border-radius: 50px;
+  opacity: 0.88;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  animation: floatCloud 3s infinite alternate ease-in-out;
+}
+
+.ws-cloud::before,
+.ws-cloud::after {
+  content: '';
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+}
+
+.ws-cloud-left  { left: 5%;  }
+.ws-cloud-right { right: 5%; top: 22%; width: 140px; }
+
+.ws-cloud-left::before  { width: 90px; height: 90px; top: -45px; left: 25px; }
+.ws-cloud-left::after   { width: 65px; height: 65px; top: -30px; left: 80px; }
+.ws-cloud-right::before { width: 70px; height: 70px; top: -35px; left: 20px; }
+.ws-cloud-right::after  { width: 50px; height: 50px; top: -22px; left: 65px; }
+
+@keyframes floatCloud {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-12px); }
+}
+
+/* ── Title Block ── */
+.ws-title-block {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.ws-subtitle {
+  font-size: 1.4rem;
+  color: #555;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+}
+
+.ws-title {
+  font-size: 3.6rem;
+  font-weight: 900;
+  color: #00A5DC;         /* Doraemon blue */
+  text-shadow:
+    3px 3px 0 white,
+    5px 5px 0 rgba(0, 165, 220, 0.25);
+  letter-spacing: 3px;
+  line-height: 1;
+  margin: 4px 0;
+}
+
+.ws-tagline {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #e74c3c;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.7);
+}
+
+/* ── Doraemon ── */
+.ws-doraemon {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -10px;
+}
+
+.ws-dora-svg {
+  width: 200px;
+  height: auto;
+  filter: drop-shadow(0 12px 20px rgba(0, 100, 180, 0.4));
+}
+
+/* ── Speech Bubble ── */
+.ws-bubble {
+  position: absolute;
+  top: 10px;
+  right: -160px;
+  background: white;
+  border: 4px solid #00A5DC;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  width: 155px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: bubblePop 2.5s infinite alternate ease-in-out;
+}
+
+.ws-bubble::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: 16px;
+  border: 9px solid transparent;
+  border-right-color: #00A5DC;
+}
+
+.ws-bubble::after {
+  content: '';
+  position: absolute;
+  left: -11px;
+  top: 18px;
+  border: 7px solid transparent;
+  border-right-color: white;
+}
+
+@keyframes bubblePop {
+  from { transform: scale(1) rotate(-2deg); }
+  to   { transform: scale(1.04) rotate(2deg); }
+}
+
+/* ── Start Button ── */
+.ws-btn-wrap {
+  position: relative;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.ws-start-btn {
+  background: linear-gradient(135deg, #FF5E7E, #FF9F43);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 18px 60px;
+  font-size: 2rem;
+  font-weight: 900;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 8px 0 rgba(0,0,0,0.18), 0 0 30px rgba(255, 94, 126, 0.4);
+  transition: transform 0.1s, box-shadow 0.1s;
+  animation: btnPulse 1.5s infinite alternate ease-in-out;
+}
+
+.ws-start-btn:hover { filter: brightness(1.1); }
+
+.ws-start-btn:active {
+  transform: translateY(8px);
+  box-shadow: 0 0 0 rgba(0,0,0,0.18);
+}
+
+@keyframes btnPulse {
+  from { box-shadow: 0 8px 0 rgba(0,0,0,0.18), 0 0 20px rgba(255, 94, 126, 0.3); }
+  to   { box-shadow: 0 8px 0 rgba(0,0,0,0.18), 0 0 50px rgba(255, 94, 126, 0.7); }
+}
+
+.ws-hint {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 700;
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+/* ── Floating Icons ── */
+.ws-float-items {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.ws-fi {
+  position: absolute;
+  font-size: 2.4rem;
+  animation: floatItem 4s infinite alternate ease-in-out;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+}
+
+.ws-fi-1 { left: 4%;  top: 45%; animation-delay: 0s;    animation-duration: 3.5s; }
+.ws-fi-2 { left: 6%;  top: 70%; animation-delay: 0.4s;  animation-duration: 4.2s; }
+.ws-fi-3 { right: 4%; top: 40%; animation-delay: 0.8s;  animation-duration: 3.8s; }
+.ws-fi-4 { right: 7%; top: 65%; animation-delay: 1.2s;  animation-duration: 4.5s; }
+.ws-fi-5 { left: 12%; top: 30%; animation-delay: 0.2s;  animation-duration: 5s;   }
+.ws-fi-6 { right:12%; top: 28%; animation-delay: 1.6s;  animation-duration: 3.2s; }
+
+@keyframes floatItem {
+  from { transform: translateY(0) rotate(-8deg) scale(1); }
+  to   { transform: translateY(-20px) rotate(8deg) scale(1.15); }
+}

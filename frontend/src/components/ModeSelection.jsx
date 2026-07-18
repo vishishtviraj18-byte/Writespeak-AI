@@ -169,6 +169,13 @@ const ModeSelection = () => {
             onMouseLeave={e => e.currentTarget.style.background='rgba(255,255,255,0.07)'}>
             <Users className="w-3.5 h-3.5" /> Parent
           </button>
+          <button onClick={() => navigate('/teacher-dashboard')}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-bold text-xs transition-all"
+            style={{ background:'rgba(52,211,153,0.1)', border:'1px solid rgba(52,211,153,0.3)', color:'#34D399' }}
+            onMouseEnter={e => e.currentTarget.style.background='rgba(52,211,153,0.22)'}
+            onMouseLeave={e => e.currentTarget.style.background='rgba(52,211,153,0.1)'}>
+            <GraduationCap className="w-3.5 h-3.5" /> Teacher
+          </button>
           <button onClick={() => setShowSettings(true)}
             className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white transition-all"
             style={{ background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.12)' }}>

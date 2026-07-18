@@ -12,6 +12,7 @@ import LearningMode from './components/LearningMode';
 import TestMode from './components/TestMode';
 import SnakeLadderGame from './components/SnakeLadderGame';
 import ParentDashboard from './components/ParentDashboard';
+import TeacherDashboard from './components/TeacherDashboard';
 
 // Custom Route Guard
 const ProtectedRoute = ({ children }) => {
@@ -79,6 +80,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ParentDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/teacher-dashboard" 
+              element={
+                <ProtectedRoute>
+                  <TeacherDashboard />
                 </ProtectedRoute>
               } 
             />

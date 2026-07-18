@@ -26,6 +26,11 @@
 ### 👨‍👩‍👦 Parent Performance Portal
 ![Parent Dashboard](docs/screenshots/parent.png)
 
+### 🎓 Teacher Dashboard — Educator Control Panel
+![Teacher Dashboard](docs/screenshots/teacher_dashboard.png)
+
+![Teacher Dashboard Activity Feed](docs/screenshots/teacher_dashboard_bottom.png)
+
 ---
 
 ## 🚀 Features
@@ -39,6 +44,7 @@
 | 🎲 Snake & Ladder | Board game unlocked after first assessment |
 | 🧠 Smart OCR | 3-layer pipeline: Backend API → Template Match (Top-3) → Tesseract |
 | 📊 Parent Dashboard | Performance trend chart, accuracy stats, history log |
+| 🎓 Teacher Dashboard | Educator control panel — student overview, test config, curriculum control |
 | 🔐 Offline Auth | Works offline — localStorage fallback when backend unreachable |
 | ✨ Royal UI | Royal dark Doraemon night-sky theme across all pages |
 
@@ -102,6 +108,7 @@ project/
 │       │   ├── LearningMode.jsx      # Drawing canvas + royal right panel
 │       │   ├── DrawingCanvas.jsx     # MediaPipe + Kalman + Bezier curves
 │       │   ├── ParentDashboard.jsx   # Performance portal with trend chart
+│       │   ├── TeacherDashboard.jsx  # Educator control panel (students, tests, curriculum)
 │       │   ├── TestMode.jsx          # Assessment mode
 │       │   ├── SnakeLadderGame.jsx   # Board game
 │       │   └── Copyright.jsx        # © Vishisht footer badge
