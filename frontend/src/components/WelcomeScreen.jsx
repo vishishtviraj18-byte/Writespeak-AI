@@ -159,8 +159,8 @@ const WelcomeScreen = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden select-none"
-      style={{ background: 'linear-gradient(135deg, #0a0e2e 0%, #0d1b4b 40%, #0a2060 70%, #061830 100%)' }}>
+    <div className="relative w-screen overflow-hidden select-none"
+      style={{ background: 'linear-gradient(135deg, #0a0e2e 0%, #0d1b4b 40%, #0a2060 70%, #061830 100%)', height: '100dvh' }}>
 
       {/* ── CSS animations ── */}
       <style>{`
@@ -244,14 +244,15 @@ const WelcomeScreen = () => {
             {/* Glow ring platform */}
             <div className="glow-ring rounded-full flex items-end justify-center"
               style={{
-                width: 280, height: 280,
+                width: 'clamp(180px, 40vmin, 280px)',
+                height: 'clamp(180px, 40vmin, 280px)',
                 background: 'radial-gradient(ellipse, rgba(0,165,220,0.15) 0%, transparent 70%)',
                 border: '1px solid rgba(0,165,220,0.3)',
               }}>
               <div
                 ref={doraRef}
                 className="dora-float cursor-pointer"
-                style={{ width: 220, height: 290, marginBottom: -10 }}
+                style={{ width: 'clamp(140px, 30vmin, 220px)', height: 'clamp(180px, 40vmin, 290px)', marginBottom: -10 }}
                 onClick={() => {
                   if (window.speechSynthesis) {
                     const u = new SpeechSynthesisUtterance("Hi! I am Doraemon! Tap start to begin writing adventure!");

@@ -6428,3 +6428,875 @@ INFO: Unsupported notification method: $/setTrace
 2026.07.18 22:27:48 INFO  compiling backend (27 java sources)
 2026.07.18 22:27:59 WARN  javac exited with exit code 1
 2026.07.18 22:27:59 INFO  time: compiled backend in 10s
+Jul 18, 2026 10:48:29 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Jul 18, 2026 11:57:39 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2026.07.18 23:58:07 INFO  Shutting down server
+2026.07.18 23:58:07 INFO  Memory monitor stopped
+2026.07.18 23:58:07 INFO  shutting down Metals
+2026.07.18 23:58:08 INFO  Shut down connection with build server.
+2026.07.30 01:16:37 INFO  Started: Metals version 1.6.7 in folders 'C:\Users\Navigation18\OneDrive\Desktop\project' for client Antigravity IDE 1.107.0.
+2026.07.30 01:16:37 INFO  Memory monitor started
+2026.07.30 01:16:40 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.07.30 01:16:42 INFO  Attempting to connect to the build server...
+2026.07.30 01:16:42 INFO  No running Bloop server found, starting one.
+2026.07.30 01:16:45 INFO  Starting compilation server
+2026.07.30 01:16:48 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\Navigation18\OneDrive\Desktop\project\.metals\bsp.trace.json or C:\Users\Navigation18\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2026.07.30 01:16:50 INFO  time: Connected to build server in 7.53s
+2026.07.30 01:16:50 INFO  Connected to Build server: Bloop v2.0.19
+2026.07.30 01:16:50 INFO  time: Imported build in 0.27s
+2026.07.30 01:16:58 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.07.30 01:17:00 INFO  time: indexed workspace in 10s
+2026.07.30 01:17:02 INFO  compiling backend (27 java sources)
+2026.07.30 01:17:07 WARN  javac exited with exit code 1
+2026.07.30 01:17:07 INFO  time: compiled backend in 5.5s
+2026.07.30 01:45:29 INFO  compiling backend (27 java sources)
+2026.07.30 01:45:39 WARN  javac exited with exit code 1
+2026.07.30 01:45:39 INFO  time: compiled backend in 10s
+2026.07.30 01:45:39 INFO  compiling backend (27 java sources)
+2026.07.30 01:45:46 WARN  Unexpected javac output: C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:8: error: package org.springframework.security.authentication does not exist
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:9: error: package org.springframework.security.core.context does not exist
+import org.springframework.security.core.context.SecurityContextHolder;
+                                                ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:10: error: package org.springframework.security.core.userdetails does not exist
+import org.springframework.security.core.userdetails.User;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:11: error: package org.springframework.security.core.userdetails does not exist
+import org.springframework.security.core.userdetails.UserDetails;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:12: error: package org.springframework.security.web.authentication does not exist
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+                                                      ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:3: error: package io.jsonwebtoken does not exist
+import io.jsonwebtoken.Claims;
+                      ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:4: error: package io.jsonwebtoken does not exist
+import io.jsonwebtoken.Jwts;
+                      ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:5: error: package io.jsonwebtoken.security does not exist
+import io.jsonwebtoken.security.Keys;
+                               ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:6: error: package org.springframework.security.config.annotation.web.builders does not exist
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+                                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:7: error: package org.springframework.security.config.annotation.web.configuration does not exist
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+                                                                       ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:8: error: package org.springframework.security.config.http does not exist
+import org.springframework.security.config.http.SessionCreationPolicy;
+                                               ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:9: error: package org.springframework.security.crypto.bcrypt does not exist
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+                                                 ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:10: error: package org.springframework.security.crypto.password does not exist
+import org.springframework.security.crypto.password.PasswordEncoder;
+                                                   ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:11: error: package org.springframework.security.web does not exist
+import org.springframework.security.web.SecurityFilterChain;
+                                       ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:12: error: package org.springframework.security.web.authentication does not exist
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+                                                      ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:21: error: cannot find symbol
+@EnableWebSecurity
+ ^
+  symbol: class EnableWebSecurity
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:28: error: cannot find symbol
+    public PasswordEncoder passwordEncoder() {
+           ^
+  symbol:   class PasswordEncoder
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:33: error: cannot find symbol
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                                           ^
+  symbol:   class HttpSecurity
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:33: error: cannot find symbol
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+           ^
+  symbol:   class SecurityFilterChain
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:9: error: package org.springframework.security.crypto.password does not exist
+import org.springframework.security.crypto.password.PasswordEncoder;
+                                                   ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\UserRepository.java:4: error: package org.springframework.data.mongodb.repository does not exist
+import org.springframework.data.mongodb.repository.MongoRepository;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\UserRepository.java:7: error: cannot find symbol
+public interface UserRepository extends MongoRepository<User, String> {
+                                        ^
+  symbol: class MongoRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:4: error: package org.springframework.data.annotation does not exist
+import org.springframework.data.annotation.Id;
+                                          ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:5: error: package org.springframework.data.mongodb.core.index does not exist
+import org.springframework.data.mongodb.core.index.Indexed;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:6: error: package org.springframework.data.mongodb.core.mapping does not exist
+import org.springframework.data.mongodb.core.mapping.Document;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:11: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:12: error: cannot find symbol
+@Document(collection = "users")
+ ^
+  symbol: class Document
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\ProgressRepository.java:4: error: package org.springframework.data.mongodb.repository does not exist
+import org.springframework.data.mongodb.repository.MongoRepository;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\ProgressRepository.java:7: error: cannot find symbol
+public interface ProgressRepository extends MongoRepository<Progress, String> {
+                                            ^
+  symbol: class MongoRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:4: error: package org.springframework.data.annotation does not exist
+import org.springframework.data.annotation.Id;
+                                          ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:5: error: package org.springframework.data.mongodb.core.index does not exist
+import org.springframework.data.mongodb.core.index.Indexed;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:6: error: package org.springframework.data.mongodb.core.mapping does not exist
+import org.springframework.data.mongodb.core.mapping.Document;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:11: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:12: error: cannot find symbol
+@Document(collection = "progress")
+ ^
+  symbol: class Document
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:26: error: cannot find symbol
+    private PasswordEncoder passwordEncoder;
+            ^
+  symbol:   class PasswordEncoder
+  location: class UserService
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\OcrResult.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\OcrResult.java:5: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\ProgressController.java:7: error: package org.springframework.security.core.context does not exist
+import org.springframework.security.core.context.SecurityContextHolder;
+                                                ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\TestController.java:7: error: package org.springframework.security.core.context does not exist
+import org.springframework.security.core.context.SecurityContextHolder;
+                                                ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:4: error: package org.springframework.data.annotation does not exist
+import org.springframework.data.annotation.Id;
+                                          ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:5: error: package org.springframework.data.mongodb.core.index does not exist
+import org.springframework.data.mongodb.core.index.Indexed;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:6: error: package org.springframework.data.mongodb.core.mapping does not exist
+import org.springframework.data.mongodb.core.mapping.Document;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:12: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:13: error: cannot find symbol
+@Document(collection = "test_results")
+ ^
+  symbol: class Document
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\TestResultRepository.java:4: error: package org.springframework.data.mongodb.repository does not exist
+import org.springframework.data.mongodb.repository.MongoRepository;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\TestResultRepository.java:7: error: cannot find symbol
+public interface TestResultRepository extends MongoRepository<TestResult, String> {
+                                              ^
+  symbol: class MongoRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\WordData.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\WordData.java:5: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectRequest.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectRequest.java:5: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:3: error: package lombok does not exist
+import lombok.AllArgsConstructor;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:4: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:5: error: package lombok does not exist
+import lombok.NoArgsConstructor;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:7: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:8: error: cannot find symbol
+@NoArgsConstructor
+ ^
+  symbol: class NoArgsConstructor
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:9: error: cannot find symbol
+@AllArgsConstructor
+ ^
+  symbol: class AllArgsConstructor
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:14: error: cannot find symbol
+    @Id
+     ^
+  symbol:   class Id
+  location: class Progress
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:17: error: cannot find symbol
+    @Indexed(unique = true)
+     ^
+  symbol:   class Indexed
+  location: class Progress
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:14: error: cannot find symbol
+    @Id
+     ^
+  symbol:   class Id
+  location: class User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:17: error: cannot find symbol
+    @Indexed(unique = true)
+     ^
+  symbol:   class Indexed
+  location: class User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:15: error: cannot find symbol
+    @Id
+     ^
+  symbol:   class Id
+  location: class TestResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:18: error: cannot find symbol
+    @Indexed
+     ^
+  symbol:   class Indexed
+  location: class TestResult
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::arrayBaseOffset has been called by com.sourcegraph.shaded.com.google.protobuf.UnsafeUtil$MemoryAccessor (file:/C:/Users/Navigation18/AppData/Local/bloop/cache/semanticdb/com.sourcegraph.semanticdb-javac.0.11.2/semanticdb-javac-0.11.2.jar)
+WARNING: Please consider reporting this to the maintainers of class com.sourcegraph.shaded.com.google.protobuf.UnsafeUtil$MemoryAccessor
+WARNING: sun.misc.Unsafe::arrayBaseOffset will be removed in a future release
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:36: error: cannot find symbol
+                UserDetails userDetails = new User(username, "", Collections.emptyList());
+                ^
+  symbol:   class UserDetails
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:36: error: cannot find symbol
+                UserDetails userDetails = new User(username, "", Collections.emptyList());
+                                              ^
+  symbol:   class User
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:37: error: cannot find symbol
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                ^
+  symbol:   class UsernamePasswordAuthenticationToken
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:37: error: cannot find symbol
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                                                                         ^
+  symbol:   class UsernamePasswordAuthenticationToken
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:39: error: cannot find symbol
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                                              ^
+  symbol:   class WebAuthenticationDetailsSource
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:41: error: cannot find symbol
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                ^
+  symbol:   variable SecurityContextHolder
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:22: error: cannot find symbol
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+                   ^
+  symbol:   variable Keys
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:30: error: cannot find symbol
+        return Jwts.builder()
+               ^
+  symbol:   variable Jwts
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:39: error: cannot find symbol
+        Claims claims = Jwts.parser()
+        ^
+  symbol:   class Claims
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:39: error: cannot find symbol
+        Claims claims = Jwts.parser()
+                        ^
+  symbol:   variable Jwts
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:50: error: cannot find symbol
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
+            ^
+  symbol:   variable Jwts
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:29: error: cannot find symbol
+        return new BCryptPasswordEncoder();
+                   ^
+  symbol:   class BCryptPasswordEncoder
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:43: error: cannot find symbol
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                                            ^
+  symbol:   class UsernamePasswordAuthenticationFilter
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:37: error: cannot find symbol
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                                                        ^
+  symbol:   variable SessionCreationPolicy
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:37: error: cannot find symbol
+        user.setUsername(username);
+            ^
+  symbol:   method setUsername(String)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:39: error: cannot find symbol
+        user.setName(name);
+            ^
+  symbol:   method setName(String)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:40: error: cannot find symbol
+        user.setGender(gender);
+            ^
+  symbol:   method setGender(String)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:41: error: cannot find symbol
+        user.setAge(age);
+            ^
+  symbol:   method setAge(Integer)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:42: error: cannot find symbol
+        user.setRoles(Collections.singletonList("ROLE_USER"));
+            ^
+  symbol:   method setRoles(List<String>)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:43: error: cannot find symbol
+        userRepository.save(user);
+                      ^
+  symbol:   method save(User)
+  location: variable userRepository of type UserRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:47: error: cannot find symbol
+        p.setUsername(username);
+         ^
+  symbol:   method setUsername(String)
+  location: variable p of type Progress
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:48: error: cannot find symbol
+        progressRepository.save(p);
+                          ^
+  symbol:   method save(Progress)
+  location: variable progressRepository of type ProgressRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:57: error: cannot find symbol
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+                                                   ^
+  symbol:   method getPassword()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:67: error: cannot find symbol
+        response.put("username", user.getUsername());
+                                     ^
+  symbol:   method getUsername()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:68: error: cannot find symbol
+        response.put("name", user.getName());
+                                 ^
+  symbol:   method getName()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:69: error: cannot find symbol
+        response.put("gender", user.getGender());
+                                   ^
+  symbol:   method getGender()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:70: error: cannot find symbol
+        response.put("age", user.getAge());
+                                ^
+  symbol:   method getAge()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:11: error: cannot find symbol
+        result.setTargetChar(targetChar);
+              ^
+  symbol:   method setTargetChar(String)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:17: error: cannot find symbol
+        result.setDetectedChar(targetChar);
+              ^
+  symbol:   method setDetectedChar(String)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:18: error: cannot find symbol
+        result.setCorrect(true);
+              ^
+  symbol:   method setCorrect(boolean)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:19: error: cannot find symbol
+        result.setConfidence(0.99);
+              ^
+  symbol:   method setConfidence(double)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:20: error: cannot find symbol
+        result.setMessage("Excellent! Perfect match! ?");
+              ^
+  symbol:   method setMessage(String)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\ProgressController.java:21: error: cannot find symbol
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                          ^
+  symbol:   variable SecurityContextHolder
+  location: class ProgressController
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\ProgressController.java:27: error: cannot find symbol
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                          ^
+  symbol:   variable SecurityContextHolder
+  location: class ProgressController
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\ProgressController.java:35: error: cannot find symbol
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                          ^
+  symbol:   variable SecurityContextHolder
+  location: class ProgressController
+Note: C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\TestController.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+100 errors
+only showing the first 100 errors, of 149 total; use -Xmaxerrs if you would like to see more.
+2026.07.30 01:45:46 INFO  Note: C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\TestController.java uses unchecked or unsafe operations.
+2026.07.30 01:45:46 INFO  Note: Recompile with -Xlint:unchecked for details.
+2026.07.30 01:45:46 WARN  javac exited with exit code 1
+2026.07.30 01:45:46 INFO  time: compiled backend in 7.09s
+2026.07.30 01:45:49 INFO  compiling backend (27 java sources)
+2026.07.30 01:45:55 WARN  Unexpected javac output: C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:8: error: package org.springframework.security.authentication does not exist
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:9: error: package org.springframework.security.core.context does not exist
+import org.springframework.security.core.context.SecurityContextHolder;
+                                                ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:10: error: package org.springframework.security.core.userdetails does not exist
+import org.springframework.security.core.userdetails.User;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:11: error: package org.springframework.security.core.userdetails does not exist
+import org.springframework.security.core.userdetails.UserDetails;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:12: error: package org.springframework.security.web.authentication does not exist
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+                                                      ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:3: error: package io.jsonwebtoken does not exist
+import io.jsonwebtoken.Claims;
+                      ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:4: error: package io.jsonwebtoken does not exist
+import io.jsonwebtoken.Jwts;
+                      ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:5: error: package io.jsonwebtoken.security does not exist
+import io.jsonwebtoken.security.Keys;
+                               ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:6: error: package org.springframework.security.config.annotation.web.builders does not exist
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+                                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:7: error: package org.springframework.security.config.annotation.web.configuration does not exist
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+                                                                       ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:8: error: package org.springframework.security.config.http does not exist
+import org.springframework.security.config.http.SessionCreationPolicy;
+                                               ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:9: error: package org.springframework.security.crypto.bcrypt does not exist
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+                                                 ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:10: error: package org.springframework.security.crypto.password does not exist
+import org.springframework.security.crypto.password.PasswordEncoder;
+                                                   ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:11: error: package org.springframework.security.web does not exist
+import org.springframework.security.web.SecurityFilterChain;
+                                       ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:12: error: package org.springframework.security.web.authentication does not exist
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+                                                      ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:21: error: cannot find symbol
+@EnableWebSecurity
+ ^
+  symbol: class EnableWebSecurity
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:28: error: cannot find symbol
+    public PasswordEncoder passwordEncoder() {
+           ^
+  symbol:   class PasswordEncoder
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:33: error: cannot find symbol
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                                           ^
+  symbol:   class HttpSecurity
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:33: error: cannot find symbol
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+           ^
+  symbol:   class SecurityFilterChain
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:9: error: package org.springframework.security.crypto.password does not exist
+import org.springframework.security.crypto.password.PasswordEncoder;
+                                                   ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\UserRepository.java:4: error: package org.springframework.data.mongodb.repository does not exist
+import org.springframework.data.mongodb.repository.MongoRepository;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\UserRepository.java:7: error: cannot find symbol
+public interface UserRepository extends MongoRepository<User, String> {
+                                        ^
+  symbol: class MongoRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:4: error: package org.springframework.data.annotation does not exist
+import org.springframework.data.annotation.Id;
+                                          ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:5: error: package org.springframework.data.mongodb.core.index does not exist
+import org.springframework.data.mongodb.core.index.Indexed;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:6: error: package org.springframework.data.mongodb.core.mapping does not exist
+import org.springframework.data.mongodb.core.mapping.Document;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:11: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:12: error: cannot find symbol
+@Document(collection = "users")
+ ^
+  symbol: class Document
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\ProgressRepository.java:4: error: package org.springframework.data.mongodb.repository does not exist
+import org.springframework.data.mongodb.repository.MongoRepository;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\ProgressRepository.java:7: error: cannot find symbol
+public interface ProgressRepository extends MongoRepository<Progress, String> {
+                                            ^
+  symbol: class MongoRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:4: error: package org.springframework.data.annotation does not exist
+import org.springframework.data.annotation.Id;
+                                          ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:5: error: package org.springframework.data.mongodb.core.index does not exist
+import org.springframework.data.mongodb.core.index.Indexed;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:6: error: package org.springframework.data.mongodb.core.mapping does not exist
+import org.springframework.data.mongodb.core.mapping.Document;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:11: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:12: error: cannot find symbol
+@Document(collection = "progress")
+ ^
+  symbol: class Document
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:26: error: cannot find symbol
+    private PasswordEncoder passwordEncoder;
+            ^
+  symbol:   class PasswordEncoder
+  location: class UserService
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\OcrResult.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\OcrResult.java:5: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\ProgressController.java:7: error: package org.springframework.security.core.context does not exist
+import org.springframework.security.core.context.SecurityContextHolder;
+                                                ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\TestController.java:7: error: package org.springframework.security.core.context does not exist
+import org.springframework.security.core.context.SecurityContextHolder;
+                                                ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:4: error: package org.springframework.data.annotation does not exist
+import org.springframework.data.annotation.Id;
+                                          ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:5: error: package org.springframework.data.mongodb.core.index does not exist
+import org.springframework.data.mongodb.core.index.Indexed;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:6: error: package org.springframework.data.mongodb.core.mapping does not exist
+import org.springframework.data.mongodb.core.mapping.Document;
+                                                    ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:12: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:13: error: cannot find symbol
+@Document(collection = "test_results")
+ ^
+  symbol: class Document
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\TestResultRepository.java:4: error: package org.springframework.data.mongodb.repository does not exist
+import org.springframework.data.mongodb.repository.MongoRepository;
+                                                  ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\repository\TestResultRepository.java:7: error: cannot find symbol
+public interface TestResultRepository extends MongoRepository<TestResult, String> {
+                                              ^
+  symbol: class MongoRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\WordData.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\WordData.java:5: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectRequest.java:3: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectRequest.java:5: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:3: error: package lombok does not exist
+import lombok.AllArgsConstructor;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:4: error: package lombok does not exist
+import lombok.Data;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:5: error: package lombok does not exist
+import lombok.NoArgsConstructor;
+             ^
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:7: error: cannot find symbol
+@Data
+ ^
+  symbol: class Data
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:8: error: cannot find symbol
+@NoArgsConstructor
+ ^
+  symbol: class NoArgsConstructor
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\dto\DetectResponse.java:9: error: cannot find symbol
+@AllArgsConstructor
+ ^
+  symbol: class AllArgsConstructor
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:14: error: cannot find symbol
+    @Id
+     ^
+  symbol:   class Id
+  location: class Progress
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\Progress.java:17: error: cannot find symbol
+    @Indexed(unique = true)
+     ^
+  symbol:   class Indexed
+  location: class Progress
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:14: error: cannot find symbol
+    @Id
+     ^
+  symbol:   class Id
+  location: class User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\User.java:17: error: cannot find symbol
+    @Indexed(unique = true)
+     ^
+  symbol:   class Indexed
+  location: class User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:15: error: cannot find symbol
+    @Id
+     ^
+  symbol:   class Id
+  location: class TestResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\model\TestResult.java:18: error: cannot find symbol
+    @Indexed
+     ^
+  symbol:   class Indexed
+  location: class TestResult
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::arrayBaseOffset has been called by com.sourcegraph.shaded.com.google.protobuf.UnsafeUtil$MemoryAccessor (file:/C:/Users/Navigation18/AppData/Local/bloop/cache/semanticdb/com.sourcegraph.semanticdb-javac.0.11.2/semanticdb-javac-0.11.2.jar)
+WARNING: Please consider reporting this to the maintainers of class com.sourcegraph.shaded.com.google.protobuf.UnsafeUtil$MemoryAccessor
+WARNING: sun.misc.Unsafe::arrayBaseOffset will be removed in a future release
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:36: error: cannot find symbol
+                UserDetails userDetails = new User(username, "", Collections.emptyList());
+                ^
+  symbol:   class UserDetails
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:36: error: cannot find symbol
+                UserDetails userDetails = new User(username, "", Collections.emptyList());
+                                              ^
+  symbol:   class User
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:37: error: cannot find symbol
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                ^
+  symbol:   class UsernamePasswordAuthenticationToken
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:37: error: cannot find symbol
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                                                                         ^
+  symbol:   class UsernamePasswordAuthenticationToken
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:39: error: cannot find symbol
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                                              ^
+  symbol:   class WebAuthenticationDetailsSource
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtAuthFilter.java:41: error: cannot find symbol
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                ^
+  symbol:   variable SecurityContextHolder
+  location: class JwtAuthFilter
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:22: error: cannot find symbol
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+                   ^
+  symbol:   variable Keys
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:30: error: cannot find symbol
+        return Jwts.builder()
+               ^
+  symbol:   variable Jwts
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:39: error: cannot find symbol
+        Claims claims = Jwts.parser()
+        ^
+  symbol:   class Claims
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:39: error: cannot find symbol
+        Claims claims = Jwts.parser()
+                        ^
+  symbol:   variable Jwts
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\JwtTokenProvider.java:50: error: cannot find symbol
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
+            ^
+  symbol:   variable Jwts
+  location: class JwtTokenProvider
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:29: error: cannot find symbol
+        return new BCryptPasswordEncoder();
+                   ^
+  symbol:   class BCryptPasswordEncoder
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:43: error: cannot find symbol
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                                            ^
+  symbol:   class UsernamePasswordAuthenticationFilter
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\config\SecurityConfig.java:37: error: cannot find symbol
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                                                        ^
+  symbol:   variable SessionCreationPolicy
+  location: class SecurityConfig
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:37: error: cannot find symbol
+        user.setUsername(username);
+            ^
+  symbol:   method setUsername(String)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:39: error: cannot find symbol
+        user.setName(name);
+            ^
+  symbol:   method setName(String)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:40: error: cannot find symbol
+        user.setGender(gender);
+            ^
+  symbol:   method setGender(String)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:41: error: cannot find symbol
+        user.setAge(age);
+            ^
+  symbol:   method setAge(Integer)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:42: error: cannot find symbol
+        user.setRoles(Collections.singletonList("ROLE_USER"));
+            ^
+  symbol:   method setRoles(List<String>)
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:43: error: cannot find symbol
+        userRepository.save(user);
+                      ^
+  symbol:   method save(User)
+  location: variable userRepository of type UserRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:47: error: cannot find symbol
+        p.setUsername(username);
+         ^
+  symbol:   method setUsername(String)
+  location: variable p of type Progress
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:48: error: cannot find symbol
+        progressRepository.save(p);
+                          ^
+  symbol:   method save(Progress)
+  location: variable progressRepository of type ProgressRepository
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:57: error: cannot find symbol
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+                                                   ^
+  symbol:   method getPassword()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:67: error: cannot find symbol
+        response.put("username", user.getUsername());
+                                     ^
+  symbol:   method getUsername()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:68: error: cannot find symbol
+        response.put("name", user.getName());
+                                 ^
+  symbol:   method getName()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:69: error: cannot find symbol
+        response.put("gender", user.getGender());
+                                   ^
+  symbol:   method getGender()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\UserService.java:70: error: cannot find symbol
+        response.put("age", user.getAge());
+                                ^
+  symbol:   method getAge()
+  location: variable user of type User
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:11: error: cannot find symbol
+        result.setTargetChar(targetChar);
+              ^
+  symbol:   method setTargetChar(String)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:17: error: cannot find symbol
+        result.setDetectedChar(targetChar);
+              ^
+  symbol:   method setDetectedChar(String)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:18: error: cannot find symbol
+        result.setCorrect(true);
+              ^
+  symbol:   method setCorrect(boolean)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:19: error: cannot find symbol
+        result.setConfidence(0.99);
+              ^
+  symbol:   method setConfidence(double)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\service\OcrService.java:20: error: cannot find symbol
+        result.setMessage("Excellent! Perfect match! ?");
+              ^
+  symbol:   method setMessage(String)
+  location: variable result of type OcrResult
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\ProgressController.java:21: error: cannot find symbol
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                          ^
+  symbol:   variable SecurityContextHolder
+  location: class ProgressController
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\ProgressController.java:27: error: cannot find symbol
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                          ^
+  symbol:   variable SecurityContextHolder
+  location: class ProgressController
+C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\ProgressController.java:35: error: cannot find symbol
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+                          ^
+  symbol:   variable SecurityContextHolder
+  location: class ProgressController
+Note: C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\TestController.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+100 errors
+only showing the first 100 errors, of 149 total; use -Xmaxerrs if you would like to see more.
+2026.07.30 01:45:55 INFO  Note: C:\Users\Navigation18\OneDrive\Desktop\project\backend\src\main\java\com\writespeak\controller\TestController.java uses unchecked or unsafe operations.
+2026.07.30 01:45:55 INFO  Note: Recompile with -Xlint:unchecked for details.
+2026.07.30 01:45:55 WARN  javac exited with exit code 1
+2026.07.30 01:45:55 INFO  time: compiled backend in 6.09s
+2026.07.30 01:46:14 INFO  compiling backend (27 java sources)
+2026.07.30 01:46:21 WARN  javac exited with exit code 1
+2026.07.30 01:46:21 INFO  time: compiled backend in 6.38s
+2026.07.30 01:48:31 INFO  compiling backend (27 java sources)
+2026.07.30 01:48:39 WARN  javac exited with exit code 1
+2026.07.30 01:48:39 INFO  time: compiled backend in 7.97s
+Jul 30, 2026 2:13:37 AM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace

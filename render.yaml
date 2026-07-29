@@ -1,0 +1,31 @@
+services:
+  # -- Backend: Spring Boot --------------------------------------
+  - type: web
+    name: writespeak-backend
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_DATA_MONGODB_URI
+        value: mongodb+srv://vishishtviraj18_db_user:Virat18%40@cluster0writespeakclust.ltqv1w7.mongodb.net/writespeak?appName=Cluster0WriteSpeakCluster
+      - key: JWT_SECRET
+        value: 9a4f2c8d3b5e7f1a6c8d9e0b1a2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u
+      - key: JAVA_OPTS
+        value: -Xmx512m
+
+  # -- Frontend: React Static Site ------------------------------
+  - type: web
+    name: writespeak-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    plan: free
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://writespeak-backend.onrender.com

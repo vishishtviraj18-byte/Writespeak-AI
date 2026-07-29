@@ -84,8 +84,8 @@ const ModeSelection = () => {
   const avatarEmoji = user?.gender === 'girl' ? '👧' : user?.gender === 'boy' ? '👦' : '🦄';
 
   return (
-    <div className="relative w-screen h-screen flex flex-col overflow-hidden select-none"
-      style={{ background: 'linear-gradient(135deg, #0a0e2e 0%, #0d1b4b 40%, #0a2060 70%, #061830 100%)' }}>
+    <div className="relative w-screen flex flex-col overflow-hidden select-none"
+      style={{ background: 'linear-gradient(135deg, #0a0e2e 0%, #0d1b4b 40%, #0a2060 70%, #061830 100%)', height: '100dvh' }}>
 
       <style>{`
         @keyframes twinkle  { 0%,100%{opacity:.15;transform:scale(1)} 50%{opacity:1;transform:scale(1.5)} }
@@ -126,19 +126,19 @@ const ModeSelection = () => {
         }}>
 
         {/* Left — User info */}
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full flex items-center justify-center text-2xl font-black border-2"
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-xl sm:text-2xl font-black border-2"
             style={{ background:'linear-gradient(135deg,#00A5DC,#0072B3)', borderColor:'rgba(0,165,220,0.6)',
               boxShadow:'0 0 20px rgba(0,165,220,0.5)' }}>
             {avatarEmoji}
           </div>
-          <div>
+          <div className="hidden xs:block">
             <p className="text-white/50 text-[10px] font-bold uppercase tracking-widest">Welcome back</p>
-            <h2 className="text-white font-black text-lg leading-tight">{user?.name || 'Explorer'}</h2>
+            <h2 className="text-white font-black text-base sm:text-lg leading-tight truncate max-w-[120px]">{user?.name || 'Explorer'}</h2>
           </div>
-          <div className="ml-2 px-3 py-1 rounded-full text-xs font-black"
+          <div className="ml-1 px-2 py-0.5 rounded-full text-xs font-black"
             style={{ background:'rgba(255,215,0,0.15)', border:'1px solid rgba(255,215,0,0.4)', color:'#FFD700' }}>
-            ⚡ Level {level}
+            ⚡ Lv{level}
           </div>
         </div>
 
@@ -161,20 +161,31 @@ const ModeSelection = () => {
         </div>
 
         {/* Right — Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <button onClick={() => navigate('/parent-dashboard')}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-bold text-xs text-white/70 hover:text-white transition-all"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl font-bold text-xs text-white/70 hover:text-white transition-all"
             style={{ background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.12)' }}
             onMouseEnter={e => e.currentTarget.style.background='rgba(255,255,255,0.14)'}
             onMouseLeave={e => e.currentTarget.style.background='rgba(255,255,255,0.07)'}>
             <Users className="w-3.5 h-3.5" /> Parent
           </button>
+          {/* Mobile: icon only */}
+          <button onClick={() => navigate('/parent-dashboard')}
+            className="sm:hidden w-9 h-9 flex items-center justify-center rounded-xl font-bold text-white/70 transition-all"
+            style={{ background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.12)' }}>
+            <Users className="w-4 h-4" />
+          </button>
           <button onClick={() => navigate('/teacher-dashboard')}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-bold text-xs transition-all"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl font-bold text-xs transition-all"
             style={{ background:'rgba(52,211,153,0.1)', border:'1px solid rgba(52,211,153,0.3)', color:'#34D399' }}
             onMouseEnter={e => e.currentTarget.style.background='rgba(52,211,153,0.22)'}
             onMouseLeave={e => e.currentTarget.style.background='rgba(52,211,153,0.1)'}>
             <GraduationCap className="w-3.5 h-3.5" /> Teacher
+          </button>
+          <button onClick={() => navigate('/teacher-dashboard')}
+            className="sm:hidden w-9 h-9 flex items-center justify-center rounded-xl font-bold transition-all"
+            style={{ background:'rgba(52,211,153,0.1)', border:'1px solid rgba(52,211,153,0.3)', color:'#34D399' }}>
+            <GraduationCap className="w-4 h-4" />
           </button>
           <button onClick={() => setShowSettings(true)}
             className="w-9 h-9 rounded-xl flex items-center justify-center text-white/60 hover:text-white transition-all"

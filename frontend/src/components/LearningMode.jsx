@@ -236,8 +236,8 @@ const LearningMode = ({ mode = 'alphabet' }) => {
   const goNext = () => setIdx(i => Math.min(chars.length - 1, i + 1));
 
   return (
-    <div className="relative w-screen h-screen flex overflow-hidden select-none"
-      style={{ background: 'linear-gradient(135deg,#060a1f 0%,#0a1640 50%,#05112a 100%)' }}>
+    <div className="relative w-screen flex overflow-hidden select-none"
+      style={{ background: 'linear-gradient(135deg,#060a1f 0%,#0a1640 50%,#05112a 100%)', height: '100dvh' }}>
 
       <style>{`
         @keyframes twinkle2 { 0%,100%{opacity:.1;transform:scale(1)} 50%{opacity:.7;transform:scale(1.4)} }
@@ -275,7 +275,7 @@ const LearningMode = ({ mode = 'alphabet' }) => {
 
       {/* Ghost letter watermark */}
       <div className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none"
-        style={{ paddingRight: 220 }}>
+        style={{ paddingRight: 'clamp(0px, 25vw, 230px)', paddingBottom: 'clamp(0px, 40vh, 0px)' }}>
         <span className="font-black select-none leading-none"
           style={{ fontSize:'min(55vh,50vw)', opacity:0.05, fontFamily:'Arial Black,sans-serif',
             color:'white', textShadow:'0 0 80px rgba(0,165,220,0.3)' }}>
@@ -291,17 +291,14 @@ const LearningMode = ({ mode = 'alphabet' }) => {
           <span className="font-black text-sm" style={{ color:'#FF5E7E' }}>{targetChar}</span>
           {' '}anywhere on screen
         </p>
-        <p className="text-[10px] mt-0.5" style={{ color:'rgba(255,255,255,0.3)' }}>
-          Mouse · Touch · ✋ Hand mode
-        </p>
-      </div>
-
-      {/* ── ROYAL RIGHT SIDE PANEL ── */}
-      <div className="absolute right-0 top-0 h-full w-[230px] z-20 flex flex-col backdrop-blur-2xl"
+      {/* ══ RIGHT PANEL (desktop) / BOTTOM PANEL (mobile) ══ */}
+      <div className="absolute md:right-0 md:top-0 md:h-full md:w-[230px] bottom-0 left-0 right-0 md:left-auto z-20 flex flex-col backdrop-blur-2xl"
         style={{
           background: 'linear-gradient(180deg, rgba(5,15,50,0.95) 0%, rgba(8,20,60,0.95) 100%)',
-          borderLeft: '1px solid rgba(0,165,220,0.25)',
-          boxShadow: '-8px 0 40px rgba(0,0,0,0.5)',
+          borderLeft: '1px solid rgba(0,165,220,0.15)',
+          borderTop: '1px solid rgba(0,165,220,0.25)',
+          boxShadow: '-4px 0 40px rgba(0,0,0,0.5)',
+          maxHeight: 'min(60vh, 400px)',
         }}>
 
         {/* Top decorative line */}

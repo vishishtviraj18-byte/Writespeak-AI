@@ -52,8 +52,8 @@ const SignupPage = () => {
   const inpStyle = { background: 'rgba(255,255,255,0.07)', border: '1.5px solid rgba(255,255,255,0.15)' };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden select-none flex items-center justify-center"
-      style={{ background: 'linear-gradient(135deg, #0a0e2e 0%, #0d1b4b 40%, #0a2060 70%, #061830 100%)' }}>
+    <div className="relative w-screen overflow-y-auto select-none flex items-center justify-center"
+      style={{ background: 'linear-gradient(135deg, #0a0e2e 0%, #0d1b4b 40%, #0a2060 70%, #061830 100%)', minHeight: '100dvh' }}>
 
       <style>{`
         @keyframes twinkle { 0%,100%{opacity:.2;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }

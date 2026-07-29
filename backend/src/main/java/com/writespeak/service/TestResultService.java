@@ -19,7 +19,7 @@ public class TestResultService {
 
     public TestResult evaluateAndSaveTest(String username, String testType, List<Map<String, Object>> answers) {
         int correct = 0;
-        List<String> wrongChars = java.util.ArrayList.class.cast(new java.util.ArrayList<String>());
+        List<String> wrongChars = new java.util.ArrayList<>();
 
         for (Map<String, Object> answer : answers) {
             String target = (String) answer.get("target");

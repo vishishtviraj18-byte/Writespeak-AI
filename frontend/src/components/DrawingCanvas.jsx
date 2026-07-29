@@ -455,11 +455,11 @@ const DrawingCanvas = ({ onSubmit, disabled, onPronounce }) => {
 
       {/* Control bar */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30
-        flex gap-2 items-center flex-wrap justify-center">
+        flex gap-2 items-center flex-wrap justify-center px-4 w-full max-w-sm">
 
         <button
           onClick={() => setHandMode(m => !m)}
-          className={`font-black text-sm text-white px-4 py-2 rounded-full
+          className={`tap-target font-black text-sm text-white px-5 py-3 rounded-full
             border-2 border-white shadow-md transition-all duration-200
             ${handMode ? 'bg-violet-600 scale-105' : 'bg-slate-600 hover:bg-slate-500'}`}>
           {handMode ? '✋ Hand ON' : '✋ Hand OFF'}
@@ -467,23 +467,23 @@ const DrawingCanvas = ({ onSubmit, disabled, onPronounce }) => {
 
         {onPronounce && (
           <button onClick={onPronounce}
-            className="bg-yellow-400 text-slate-800 text-sm font-black
-              border-2 border-white rounded-full py-2 px-4 shadow
+            className="tap-target bg-yellow-400 text-slate-800 text-sm font-black
+              border-2 border-white rounded-full py-3 px-5 shadow
               hover:brightness-105 active:scale-95 transition-all">
             🔊 Hear
           </button>
         )}
 
         <button onClick={handleClear}
-          className="bg-slate-500 text-white text-sm font-black
-            border-2 border-white rounded-full py-2 px-4 shadow
+          className="tap-target bg-slate-500 text-white text-sm font-black
+            border-2 border-white rounded-full py-3 px-5 shadow
             hover:bg-slate-400 active:scale-95 transition-all">
           🧹 Clear
         </button>
 
         <button onClick={handleSubmit} disabled={disabled}
-          className={`text-white text-sm font-black border-2 border-white
-            rounded-full py-2 px-5 shadow transition-all
+          className={`tap-target text-white text-sm font-black border-2 border-white
+            rounded-full py-3 px-6 shadow transition-all
             ${disabled
               ? 'bg-slate-300 cursor-not-allowed'
               : 'bg-green-500 hover:bg-green-400 active:scale-95'}`}>

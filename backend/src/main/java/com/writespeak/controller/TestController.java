@@ -18,6 +18,7 @@ public class TestController {
     @Autowired
     private TestResultService testResultService;
 
+    @SuppressWarnings("unchecked")
     @PostMapping("/evaluate")
     public ResponseEntity<TestResult> evaluate(@RequestBody Map<String, Object> body) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -34,6 +35,7 @@ public class TestController {
         return ResponseEntity.ok(testResultService.getTestHistory(username));
     }
 
+    @SuppressWarnings("unchecked")
     @PostMapping("/generate-queue")
     public ResponseEntity<List<String>> generateQueue(@RequestBody Map<String, Object> body) {
         List<String> alpha = (List<String>) body.get("alphabetsDone");
