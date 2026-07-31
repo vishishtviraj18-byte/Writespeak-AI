@@ -1,11 +1,10 @@
 services:
-  # -- Backend: Spring Boot --------------------------------------
+  # -- Backend: Spring Boot (Docker)
   - type: web
     name: writespeak-backend
     runtime: docker
     rootDir: backend
     dockerfilePath: ./Dockerfile
-    plan: free
     envVars:
       - key: SPRING_DATA_MONGODB_URI
         value: mongodb+srv://vishishtviraj18_db_user:Virat18%40@cluster0writespeakclust.ltqv1w7.mongodb.net/writespeak?appName=Cluster0WriteSpeakCluster
@@ -14,14 +13,13 @@ services:
       - key: JAVA_OPTS
         value: -Xmx512m
 
-  # -- Frontend: React Static Site ------------------------------
+  # -- Frontend: React Static Site
   - type: web
     name: writespeak-frontend
-    runtime: static
+    env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
-    plan: free
     routes:
       - type: rewrite
         source: /*
