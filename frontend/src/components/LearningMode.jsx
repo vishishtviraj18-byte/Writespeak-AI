@@ -283,14 +283,6 @@ const LearningMode = ({ mode = 'alphabet' }) => {
         </span>
       </div>
 
-      {/* Top-left hint badge */}
-      <div className="absolute top-4 left-4 z-20 backdrop-blur-md rounded-2xl px-4 py-2"
-        style={{ background:'rgba(0,20,60,0.7)', border:'1px solid rgba(0,165,220,0.25)' }}>
-        <p className="text-xs font-bold" style={{ color:'rgba(255,255,255,0.6)' }}>
-          ✏️ Draw{' '}
-          <span className="font-black text-sm" style={{ color:'#FF5E7E' }}>{targetChar}</span>
-          {' '}anywhere on screen
-        </p>
       {/* ══ RIGHT PANEL (desktop) / BOTTOM PANEL (mobile) ══ */}
       <div className="absolute md:right-0 md:top-0 md:h-full md:w-[230px] bottom-0 left-0 right-0 md:left-auto z-20 flex flex-col backdrop-blur-2xl"
         style={{
